@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinatelecom.dao.UpFileMapper">
+  <resultMap id="BaseResultMap" type="com.chinatelecom.model.UpFile">
+    <id column="no" jdbcType="BIGINT" property="no" />
+    <result column="filename" jdbcType="VARCHAR" property="filename" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="detail_no" jdbcType="BIGINT" property="detailNo" />
+    <result column="batch_no" jdbcType="BIGINT" property="batchNo" />
+    <result column="upload_time" jdbcType="VARCHAR" property="uploadTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    no, filename, userid, detail_no, batch_no, upload_time
+  </sql>
+  <select id="selectByExample" parameterType="com.chinatelecom.model.UpFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from upfile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from upfile
+    where no = #{no,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from upfile
+    where no = #{no,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.chinatelecom.model.UpFileExample">
+    delete from upfile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.chinatelecom.model.UpFile">
+    insert into upfile (no, filename, userid, 
+      detail_no, batch_no, upload_time
+      )
+    values (#{no,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{detailNo,jdbcType=BIGINT}, #{batchNo,jdbcType=BIGINT}, #{uploadTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinatelecom.model.UpFile">
+    insert into upfile
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="no != null">
+        no,
+      </if>
+      <if test="filename != null">
+        filename,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="detailNo != null">
+        detail_no,
+      </if>
+      <if test="batchNo != null">
+        batch_no,
+      </if>
+      <if test="uploadTime != null">
+        upload_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="no != null">
+        #{no,jdbcType=BIGINT},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="detailNo != null">
+        #{detailNo,jdbcType=BIGINT},
+      </if>
+      <if test="batchNo != null">
+        #{batchNo,jdbcType=BIGINT},
+      </if>
+      <if test="uploadTime != null">
+        #{uploadTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.chinatelecom.model.UpFileExample" resultType="java.lang.Long">
+    select count(*) from upfile
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update upfile
+    <set>
+      <if test="record.no != null">
+        no = #{record.no,jdbcType=BIGINT},
+      </if>
+      <if test="record.filename != null">
+        filename = #{record.filename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailNo != null">
+        detail_no = #{record.detailNo,jdbcType=BIGINT},
+      </if>
+      <if test="record.batchNo != null">
+        batch_no = #{record.batchNo,jdbcType=BIGINT},
+      </if>
+      <if test="record.uploadTime != null">
+        upload_time = #{record.uploadTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update upfile
+    set no = #{record.no,jdbcType=BIGINT},
+      filename = #{record.filename,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      detail_no = #{record.detailNo,jdbcType=BIGINT},
+      batch_no = #{record.batchNo,jdbcType=BIGINT},
+      upload_time = #{record.uploadTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinatelecom.model.UpFile">
+    update upfile
+    <set>
+      <if test="filename != null">
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="detailNo != null">
+        detail_no = #{detailNo,jdbcType=BIGINT},
+      </if>
+      <if test="batchNo != null">
+        batch_no = #{batchNo,jdbcType=BIGINT},
+      </if>
+      <if test="uploadTime != null">
+        upload_time = #{uploadTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where no = #{no,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinatelecom.model.UpFile">
+    update upfile
+    set filename = #{filename,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      detail_no = #{detailNo,jdbcType=BIGINT},
+      batch_no = #{batchNo,jdbcType=BIGINT},
+      upload_time = #{uploadTime,jdbcType=VARCHAR}
+    where no = #{no,jdbcType=BIGINT}
+  </update>
+</mapper>

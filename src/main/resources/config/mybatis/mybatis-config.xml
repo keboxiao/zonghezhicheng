@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    
+	<settings>
+		<!-- changes from the defaults -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" /> 
+	</settings>
+	
+	<!--<plugins>
+		<plugin interceptor="org.buzheng.demo.esm.common.mybatis.MybatisPaginationInterceptor">
+		    <property name="dialectClass" value="org.buzheng.demo.esm.common.mybatis.MySQLDialect"/>
+		</plugin>
+	</plugins>-->
+
+	<!-- 分页插件 -->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageHelper">
+			<property name="dialect" value="mysql" />
+			<property name="pageSizeZero" value="true" />
+			<property name="reasonable" value="true" />
+		</plugin>
+	</plugins>
+	
+</configuration>

@@ -2,25 +2,25 @@ package org.buzheng.demo.esm.domain;
 
 public class SysRoleMenu {
 
-	private String Id;
+	private Long Id;
 	
-	private String roleId;
+	private Long roleId;
 	
 	private String menuId;
 
-	public String getId() {
+	public Long getId() {
 		return Id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		Id = id;
 	}
 
-	public String getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(String roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 
@@ -31,7 +31,5 @@ public class SysRoleMenu {
 	public void setMenuId(String menuId) {
 		this.menuId = menuId;
 	}
-	
-	
-	
+
 }

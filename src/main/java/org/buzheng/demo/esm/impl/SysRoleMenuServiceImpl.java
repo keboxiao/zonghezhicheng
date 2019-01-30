@@ -28,7 +28,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 	@Override
 	public void save(String roleId, String menuId) {
 		SysRoleMenu srm = new SysRoleMenu();
-		srm.setRoleId(roleId);
+		srm.setRoleId(Long.parseLong(roleId));
 		srm.setMenuId(menuId);
 		
 		this.save(srm);
@@ -54,7 +54,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 	}
 
 	@Override
-	public List<String> findMenuIdsByRoleId(String roleId) {
+	public List<String> findMenuIdsByRoleId(Long roleId) {
 		return this.sysRoleMenuDao.findMenuIdByRoleId(roleId);
 	}
 	

@@ -45,7 +45,7 @@ public class AccountController {
 			return "login";
 		}
 		
-		String roleId = user.getRoleId();
+		Long roleId = user.getRoleId();
 		List<String> roleMenuIds = this.sysRoleMenuService.findMenuIdsByRoleId(roleId);
 		
 		if (roleMenuIds == null || roleMenuIds.size() == 0) {

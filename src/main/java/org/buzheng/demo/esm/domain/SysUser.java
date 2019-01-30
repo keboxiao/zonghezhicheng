@@ -17,11 +17,11 @@ public class SysUser {
 	
 	private String name;
 	
-	private String roleId;
+	private Long roleId;
 	
 	private String roleName;
 	
-	private String groupId;
+	private Long groupId;
 	
 	private String groupName;
 	
@@ -75,19 +75,19 @@ public class SysUser {
 		this.name = name;
 	}
 
-	public String getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(String roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
 
-	public String getGroupId() {
+	public Long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(String groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
 

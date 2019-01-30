@@ -12,6 +12,6 @@ public interface SysRoleMenuService {
 	
 	void save(String roleId, String[] menuIds);
 	
-	List<String> findMenuIdsByRoleId(String roleId);
+	List<String> findMenuIdsByRoleId(Long roleId);
 	
 }

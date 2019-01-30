@@ -10,7 +10,7 @@ public interface SysRoleMenuDao {
 	
 	void deleteByRoleId(String roleId);
 	
-	List<String> findMenuIdByRoleId(String roleId);
+	List<String> findMenuIdByRoleId(Long roleId);
 	
 	void deleteByMenuId(String menuId);
 }

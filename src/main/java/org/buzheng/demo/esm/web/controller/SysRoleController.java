@@ -70,7 +70,7 @@ public class SysRoleController extends BaseController {
 	@ResponseBody
 	public List<EasyuiTreeNode> menu(@RequestParam(value="roleId", required=true) String roleId) {
 		
-		List<String> roleMenus = this.sysRoleMenuService.findMenuIdsByRoleId(roleId);
+		List<String> roleMenus = this.sysRoleMenuService.findMenuIdsByRoleId(Long.parseLong(roleId));
 		
 		EasyuiTreeNode node = WebFrontHelper.buildTreeForEasyuiTree(this.sysMenuService.findAll(), roleMenus);	
 		

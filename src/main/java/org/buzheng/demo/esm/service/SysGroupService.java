@@ -25,5 +25,5 @@ public interface SysGroupService {
 	
 	List<SysGroup> findAll();
 	
-	SysGroup findById(String groupId);
+	SysGroup findById(Long groupId);
 }

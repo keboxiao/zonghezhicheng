@@ -63,7 +63,7 @@ public class SysGroupController extends BaseController {
 			return temp;
 		}
 		
-		if (user.getGroupId() != null && ! user.getGroupId().isEmpty()) {
+		if (user.getGroupId() != null) {
 			temp.add(this.sysGroupService.findById(user.getGroupId()));
 			return temp;
 		} 

@@ -67,12 +67,12 @@ public class SysUserServiceImpl implements SysUserService {
 			throw new IllegalArgumentException("user.name.required");
 		}
 
-		if (user.getRoleId() == null || user.getRoleId().isEmpty()) {
+		if (user.getRoleId() == null) {
 			throw new IllegalArgumentException("user.role.required");
 		}
 
 		if (!App.SUPER_ROLE_ID.equals(user.getRoleId())) {
-			if (user.getGroupId() == null || user.getGroupId().isEmpty()) {
+			if (user.getGroupId() == null) {
 				throw new IllegalArgumentException("user.group.required");
 			}
 		}

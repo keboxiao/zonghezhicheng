@@ -58,7 +58,7 @@ public class SysGroupServiceImpl implements SysGroupService {
 	}
 
 	@Override
-	public SysGroup findById(String groupId) {
+	public SysGroup findById(Long groupId) {
 		return this.sysGroupDao.findById(groupId);
 	}
 

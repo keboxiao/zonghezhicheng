@@ -14,7 +14,7 @@ public interface SysGroupDao {
 	
 	List<SysGroup> findAll();
 	
-	SysGroup findById(String groupId);
+	SysGroup findById(Long groupId);
 	
 	SysGroup findByGroupName(String groupName);
 	

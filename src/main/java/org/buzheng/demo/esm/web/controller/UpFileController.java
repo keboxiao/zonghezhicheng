@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.buzheng.demo.esm.App;
 import org.buzheng.demo.esm.domain.SysUser;
+import org.buzheng.demo.esm.service.UpFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,9 @@ public class UpFileController {
 
 	@Autowired
 	private UpFileMapper upFileMapper;
+
+	@Autowired
+	private UpFileService upFileService;
 
 	@RequestMapping("springUpload")
 	@ResponseBody
@@ -113,6 +117,17 @@ public class UpFileController {
 			// downloadRecord.setStatus(DownloadRecord.STATUS_ERROR);
 			e.printStackTrace();
 		}
+	}
+
+	@RequestMapping("deleteUpFile")
+	@ResponseBody
+	public Json deleteFile(Long id) {
+		upFileService.deleteFile(id);
+		Json j = new Json();
+		String msg = "删除成功";
+		j.setSuccess(true);
+		j.setMsg(msg);
+		return j;
 	}
 
 }

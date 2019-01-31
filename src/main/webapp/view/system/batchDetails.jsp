@@ -46,6 +46,7 @@
 			<td>
 				<input type="button" onclick="javascript:loadFile();" value="上传文件"/>
 				<input type="hidden" id="batch_no" name="batch_no" />
+				<input type="button" onclick="javascript:deleteFile();" value="删除文件"/>
 			</td>
 			</form>
 		</tr>

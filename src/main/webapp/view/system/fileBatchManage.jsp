@@ -175,7 +175,37 @@ function loadFile(){
 			}   
      });  
 }
-    
+
+function deleteFile(){
+	var row = $("#filegrid").datagrid("getSelected");
+	if (row != null) {
+		$.messager.confirm('确认', '您是否要删除当前选中的项目？', function(r) {
+			if (r) {
+				$.ajax({
+					type: 'POST',
+					url : '../../app/deleteUpFile',
+					data : {
+						id : row.no
+					},
+					dataType : 'json',
+					success : function(r) {
+						$('#filegrid').datagrid('reload');
+						$('#filegrid').datagrid('unselectAll');
+						$.messager.show({
+							title : '提示',
+							msg : r.msg
+						});
+					}
+				});
+			}
+		});
+	} else {
+		$.messager.show({
+			title : '提示',
+			msg : '请选择要删除的记录！'
+		});
+	}
+}
 function deleteById(){
 	var row = $("#grid").datagrid("getSelected");
 	if (row != null) {

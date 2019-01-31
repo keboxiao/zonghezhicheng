@@ -57,12 +57,12 @@
 	    ORDER BY u.add_time
 	</select>
 	
-	<select id="findPageByParams" resultType="SysUser">
+	<select id="findPageByParams" resultType="SysUser" parameterType="map">
 	    <include refid="findSql" />
 	    
 	    <where>
-	        <if test="param1.groupId != null">
-	            u.group_id = #{param1.groupId}
+	        <if test="params.groupId != null">
+	            u.group_id = #{params.groupId}
 	        </if>
 	    </where>
 	    

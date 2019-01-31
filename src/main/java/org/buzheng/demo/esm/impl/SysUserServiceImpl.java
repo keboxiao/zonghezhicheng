@@ -11,7 +11,6 @@ import org.buzheng.demo.esm.domain.SysUser;
 import org.buzheng.demo.esm.service.SysUserService;
 import org.buzheng.demo.esm.service.UserExistsException;
 import org.buzheng.demo.esm.util.AppHelper;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.chinatelecom.model.DataGrid;
@@ -126,7 +125,14 @@ public class SysUserServiceImpl implements SysUserService {
 	@Override
 	public DataGrid findPage(Map<String, Object> params, int page, int rows) {
 		//this.sysUserDao.findPageByParams(params);
-		return null;
+		PageHelper.startPage(page, rows);
+		List list = sysUserDao.findPageByParams(params);
+		// 取分页信息
+		Page<SysUser> pageInfo = (Page<SysUser>) list;
+		DataGrid datagrid = new DataGrid();
+		datagrid.setRows(list);
+		datagrid.setTotal(pageInfo.getTotal());
+		return datagrid;
 	}
 
 }

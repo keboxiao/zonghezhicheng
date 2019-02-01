@@ -15,4 +15,6 @@ public interface SysMenuDao {
 	void delete(String menuId);
 	
 	List<SysMenu> findByChildId(List<String> menuId);
+	
+	SysMenu findById(String menuId);
 }

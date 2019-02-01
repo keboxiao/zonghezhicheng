@@ -23,23 +23,23 @@
 		</javaTypeResolver>
 		<!-- 生成模型的包名和位置 -->
 		<javaModelGenerator targetPackage="com.chinatelecom.model"
-			targetProject="start-project/src/main/java">
+			targetProject="zonghezhicheng/src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- 生成映射文件的包名和位置 -->
 		<sqlMapGenerator targetPackage="com.chinatelecom.dao"
-			targetProject="start-project/src/main/java">
+			targetProject="zonghezhicheng/src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- 生成DAO的包名和位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.chinatelecom.dao" targetProject="start-project/src/main/java">
+			targetPackage="com.chinatelecom.dao" targetProject="zonghezhicheng/src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
-        <table schema="root" tableName="upfile" domainObjectName="UpFile"   >
+        <table schema="root" tableName="work_order" domainObjectName="WorkOrder"   >
 			<!-- 如果设置为true，MBG不会讲schema或catalog添加到生成SQL中的表名上。 -->
 	  		<property name="ignoreQualifiersAtRuntime" value="true"/>
         </table>

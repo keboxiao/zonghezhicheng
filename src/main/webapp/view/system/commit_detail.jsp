@@ -10,7 +10,66 @@
 
 <body>
 	<script type="text/javascript" src="domtab.js"></script>
-
+			<style type="text/css">
+		#mostSchemeListId,#perSchemeNumberId,#mostTimeId,#mostHopId,#delayTimeId{
+			width:98%;
+			height:30px;
+		}
+		#addDialogId{
+			width:700px;height:425px;
+			padding:20px 15px 15px 15px;
+		}
+		
+		table.editTable{
+		   border-collapse: collapse; 
+		   width: 100%;
+		   font-size: 16px;
+		   /* color:#00bfff; */
+		   color:#009999;
+		   cellpadding : 3px;
+		   text-align: right;
+		   
+		 }
+		 
+		  tr,td{
+		 	border: solid 1px silver; 
+		 }
+		
+		
+		 td.oddTd{
+		 	/* width:20%; */
+		 	background: #eaeaea;
+		 }
+		
+		#operatePerson,#userId,#ip_id,#port_id{
+			width: 97%; height: 100%;
+		}
+		input#dataDomainId, input#serviceTypeIds{
+			width:100%;height:30px;
+		}
+		#urlId{
+			width: 99%; height: 100%;
+		}
+		textarea{
+			margin-top:5px;
+			resize:none;
+		    height: 100%;
+		    width: 100%;
+		    font-size: 14px;
+		    border:0;
+		    overflow:hidden;
+		}
+		.combobox-item, .combobox-group, .combobox-stick{
+			font-size:14px;
+		}
+		 div.save-reset{
+			text-align:center;padding:5px 0;
+		 }
+		 button{
+		 	font-size:16px;
+		 }
+		
+	</style>
 	<script language="JavaScript">
  
 
@@ -31,26 +90,23 @@
     
 </script>
 	<form name="userForm" method="post" action="../../app/addFileBatch">
-		<table width="100%" border="0" align="center" cellpadding="0"
-			cellspacing="0">
-			<tr>
-				<td height="90">
-					<table width="100%" height="60" border="1" align="center"
-						cellpadding="0" cellspacing="1">
-						<tr>
-							<td colspan="3" height="30" bgcolor="#FFFF00" align="center"
-								style="font-weight: bold">新建主题</td>
-						</tr>
-						<tr>
-							<td width="31%" height="30"><label>主题 </label> <input id="title" name="title" /></td>
-							<td width="30%"><label>备注</label><input id="remark" name="remark" /></td>
-							<td></td>
-						</tr>
-					</table>
+		<table class="editTable" height="100px">
+			<tr height="35px">
+				<td colspan="4" bgcolor="#D2E9FF" align="center" style="font-weight: bold">新建主题</td>
+			</tr>
+			<tr height="35px">
+				<td width="25%" class="oddTd">主题 ：</td>
+				<td align="center">
+				<input style="width:98%;height:100%" id="title" name="title" />
+				</td>
+				<td class="oddTd" width="20%">备注：</td>
+				<td align="center">
+				<input style="width:98%;height:100%" id="remark" name="remark" />
+				<input type="hidden" id="id" name="id" />
 				</td>
 			</tr>
 			<tr>
-				<td height="35">
+				<td height="35" colspan="4">
 					<center>
 						<input type="submit" value="创建"/>
 						<input type="button" value="取消" onclick="" /> 

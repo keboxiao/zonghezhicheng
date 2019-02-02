@@ -16,6 +16,67 @@
 		<script type="text/javascript" src="<%=request.getContextPath() %>/jquery-easyui-1.5.1/locale/easyui-lang-zh_CN.js"></script>
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/jquery-easyui-1.5.1/themes/default/easyui.css" type="text/css"></link>
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/jquery-easyui-1.5.1/themes/icon.css" type="text/css"></link>
+		
+			<style type="text/css">
+		#mostSchemeListId,#perSchemeNumberId,#mostTimeId,#mostHopId,#delayTimeId{
+			width:98%;
+			height:30px;
+		}
+		#addDialogId{
+			width:700px;height:425px;
+			padding:20px 15px 15px 15px;
+		}
+		
+		table.editTable{
+		   border-collapse: collapse; 
+		   width: 100%;
+		   font-size: 16px;
+		   /* color:#00bfff; */
+		   color:#009999;
+		   cellpadding : 3px;
+		   text-align: right;
+		   
+		 }
+		 
+		  tr,td{
+		 	border: solid 1px silver; 
+		 }
+		
+		
+		 td.oddTd{
+		 	/* width:20%; */
+		 	background: #eaeaea;
+		 }
+		
+		#operatePerson,#userId,#ip_id,#port_id{
+			width: 97%; height: 100%;
+		}
+		input#dataDomainId, input#serviceTypeIds{
+			width:100%;height:30px;
+		}
+		#urlId{
+			width: 99%; height: 100%;
+		}
+		textarea{
+			margin-top:5px;
+			resize:none;
+		    height: 100%;
+		    width: 100%;
+		    font-size: 14px;
+		    border:0;
+		    overflow:hidden;
+		}
+		.combobox-item, .combobox-group, .combobox-stick{
+			font-size:14px;
+		}
+		 div.save-reset{
+			text-align:center;padding:5px 0;
+		 }
+		 button{
+		 	font-size:16px;
+		 }
+		
+	</style>
 		<script type="text/javascript">
 
 $(function() {
@@ -135,12 +196,12 @@ function editBatch() {
 			columns : [ [ {
 				field : 'filename',
 				title : '文件名',
-				width : 200,
+				width : 300,
 				align : 'center'
 			}, {
 				field : 'batchNo',
 				title : '主题号',
-				width : 200,
+				width : 80,
 				align : 'center'
 			}, {
 				field : 'uploadTime',

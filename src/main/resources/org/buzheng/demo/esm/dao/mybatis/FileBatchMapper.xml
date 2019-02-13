@@ -117,7 +117,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chinatelecom.model.FileBatch">
+  <insert id="insert" parameterType="com.chinatelecom.model.FileBatch" useGeneratedKeys="true" keyProperty="id">
     insert into filebatch ( userid, title, remark)
     values ( #{user.userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})

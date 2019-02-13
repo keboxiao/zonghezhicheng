@@ -53,7 +53,12 @@ public class FileBatchController {
 		SysUser sysUser = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
 		fileBatch.setUser(sysUser);
 		fileBatchMapper.insert(fileBatch);
-		return new Json();
+		Json j = new Json();
+		String msg = "添加成功";
+		j.setObj(fileBatch);
+		j.setSuccess(true);
+		j.setMsg(msg);
+		return j;
 	}
 
 	@RequestMapping("/updateFileBatch")

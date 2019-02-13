@@ -112,7 +112,9 @@ $(function() {
 	});
 });
 
-
+function test() {
+	alert($('#userForm1').serialize());
+}
 
 function savebatch() {
 	$.messager.confirm('确认', '您确定要保存？', function(r) {
@@ -155,21 +157,65 @@ function clearFun() {
 
 
 function addBatch() {
-	url = "commit_detail.jsp";		
-    var content = '<iframe src="' + url + '" width="100%" height="99%" frameborder="0" scrolling="no"></iframe>';  
-    var boarddiv = '<div id="msgwindow" ></div>'//style="overflow:hidden;"可以去掉滚动条  	    
-    $(document.body).append(boarddiv);  
-    var win = $('#msgwindow').dialog({  
-        content: content,  
-        width: 900,  
-        height: 500,  
-        modal: true, 
-        title: "新增共享资料",  
-        onClose: function () {  
-            $(this).dialog('destroy');//后面可以关闭后的事件  
-        }  
-    });  
-    win.dialog('open');
+	$("#dlgAdd").dialog("open").dialog('setTitle', '增加');
+}
+
+function addFileBatch() {
+		$.messager.confirm('确认', '你确定要保存吗?', function(r) {
+			if (r) {
+				$.ajax({
+					type: 'POST',
+					url : '../../app/addFileBatch',
+					data : $('#userForm1').serialize(),
+					dataType : 'json',
+					success : function(r) {
+						$('#grid').datagrid('reload');
+						$('#grid').datagrid('unselectAll');
+						$("#dlgAdd").dialog("close");
+						editBatchById(r.obj);
+					}
+				});
+			}
+		});
+}
+
+function editBatchById(row) {
+	if (row) {
+		$("#dlgDetails").dialog("open").dialog('setTitle', '修改');
+		$("#batchForm").form("load", row);
+		$("#batch_no").attr('value',row.id);
+		$('#filegrid').datagrid( {
+			url : '../../app/listFileByBatchId?id='+id,
+			striped : true,
+			rownumbers : true,
+			singleSelect:true,
+			fitColumns: false,
+			columns : [ [ {
+				field : 'filename',
+				title : '文件名',
+				width : 300,
+				align : 'center'
+			}, {
+				field : 'batchNo',
+				title : '主题号',
+				width : 80,
+				align : 'center'
+			}, {
+				field : 'uploadTime',
+				title : '上传时间',
+				width : 200,
+				align : 'center'
+			}, {
+				field:'no',
+				title:'下载',
+				align:'center',
+				width : 100,
+				formatter : function(value) {
+					return "<a href='../../app/downloadById?id=" + value + "'>下载</a>";
+				}
+			} ] ]
+		});
+	}
 }
 
 function editBatch() {
@@ -301,6 +347,7 @@ function deleteById(){
 
 	</head>
 	<%@ include file="batchDetails.jsp" %>
+	<%@ include file="commit_detail.jsp" %>
 	<body align="center">
 
 		<div id="tb" style="padding: 3px"

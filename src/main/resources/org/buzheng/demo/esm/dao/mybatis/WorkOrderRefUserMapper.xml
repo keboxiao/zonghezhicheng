@@ -8,6 +8,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="reach_time" jdbcType="TIMESTAMP" property="reachTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, work_order_id, remark, reach_time, finish_time
+    id, user_id, work_order_id, remark, reach_time, finish_time, state
   </sql>
   <select id="selectByExample" parameterType="com.chinatelecom.model.WorkOrderRefUserExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.chinatelecom.model.WorkOrderRefUser">
     insert into work_order_ref_user (id, user_id, work_order_id, 
-      remark, reach_time, finish_time
-      )
+      remark, reach_time, finish_time, 
+      state)
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{workOrderId,jdbcType=BIGINT}, 
-      #{remark,jdbcType=VARCHAR}, #{reachTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}
-      )
+      #{remark,jdbcType=VARCHAR}, #{reachTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.chinatelecom.model.WorkOrderRefUser">
     insert into work_order_ref_user
@@ -129,6 +130,9 @@
       <if test="finishTime != null">
         finish_time,
       </if>
+      <if test="state != null">
+        state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="finishTime != null">
         #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.finishTime != null">
         finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       work_order_id = #{record.workOrderId,jdbcType=BIGINT},
       remark = #{record.remark,jdbcType=VARCHAR},
       reach_time = #{record.reachTime,jdbcType=TIMESTAMP},
-      finish_time = #{record.finishTime,jdbcType=TIMESTAMP}
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="finishTime != null">
         finish_time = #{finishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -222,7 +236,8 @@
       work_order_id = #{workOrderId,jdbcType=BIGINT},
       remark = #{remark,jdbcType=VARCHAR},
       reach_time = #{reachTime,jdbcType=TIMESTAMP},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP}
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

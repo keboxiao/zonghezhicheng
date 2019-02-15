@@ -15,6 +15,8 @@ public class WorkOrderRefUser {
 
     private Date finishTime;
 
+    private Integer state;
+
     public Long getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class WorkOrderRefUser {
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

@@ -36,13 +36,13 @@ $(function() {
 			width : 200,
 			align : 'center'
 		}, {
-			field: 'affect_scope', 
+			field: 'affectScope', 
 			title: '影响范围', 
 			align: 'center', 
 			width : 100,
 			align : 'center'
 		}, {
-			field : 'service_type',
+			field : 'serviceType',
 			title : '业务类型',
 			width : 100,
 			align : 'center'
@@ -57,7 +57,7 @@ $(function() {
 			width : 100,
 			align : 'center'
 		}, {
-			field : 'first_system',
+			field : 'firstSystem',
 			title : '首要系统',
 			width : 100,
 			align : 'center'
@@ -74,10 +74,6 @@ $(function() {
 		}] ]
 	});
 });
-
-function test() {
-	alert($('#userForm1').serialize());
-}
 
 function savebatch() {
 	$.messager.confirm('确认', '您确定要保存？', function(r) {
@@ -310,7 +306,7 @@ function deleteById(){
 
 	</head>
 	<body align="center">
-
+	<%@ include file="createWorkOrder.jsp" %>
 		<div id="tb" style="padding: 3px"
 			data-options="region:'north',title:'查询条件',border:false">
 			<form id="admin_yhgl_searchForm">

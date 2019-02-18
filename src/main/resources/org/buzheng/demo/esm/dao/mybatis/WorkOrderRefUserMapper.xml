@@ -10,6 +10,14 @@
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
     <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
+  <resultMap id="InnerJoinMap" type="com.chinatelecom.model.WorkOrderRefUser" extends="BaseResultMap">
+    <association property="user" javaType="org.buzheng.demo.esm.domain.SysUser">
+    	<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="username" jdbcType="VARCHAR" property="username" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+	</association>
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -90,6 +98,11 @@
     <include refid="Base_Column_List" />
     from work_order_ref_user
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="listOrderDetailsInnerJoinUser" parameterType="java.lang.Long" resultMap="InnerJoinMap">
+    select * 
+    from work_order_ref_user r inner join sys_user u on r.user_id=u.user_id
+    where r.work_order_id=#{workOrderId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from work_order_ref_user

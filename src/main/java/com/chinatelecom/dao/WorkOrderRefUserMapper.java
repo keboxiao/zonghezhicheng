@@ -27,4 +27,6 @@ public interface WorkOrderRefUserMapper {
     int updateByPrimaryKeySelective(WorkOrderRefUser record);
 
     int updateByPrimaryKey(WorkOrderRefUser record);
+    
+    List<WorkOrderRefUser> listOrderDetailsInnerJoinUser(Long workOrderId);
 }

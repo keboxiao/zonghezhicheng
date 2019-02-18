@@ -2,6 +2,8 @@ package com.chinatelecom.model;
 
 import java.util.Date;
 
+import org.buzheng.demo.esm.domain.SysUser;
+
 public class WorkOrderRefUser {
     private Long id;
 
@@ -16,6 +18,8 @@ public class WorkOrderRefUser {
     private Date finishTime;
 
     private Integer state;
+
+    private SysUser sysUser;
 
     public Long getId() {
         return id;
@@ -72,4 +76,13 @@ public class WorkOrderRefUser {
     public void setState(Integer state) {
         this.state = state;
     }
+
+	public SysUser getSysUser() {
+		return sysUser;
+	}
+
+	public void setSysUser(SysUser sysUser) {
+		this.sysUser = sysUser;
+	}
+    
 }

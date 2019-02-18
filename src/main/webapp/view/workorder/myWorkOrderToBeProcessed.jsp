@@ -3,7 +3,7 @@
 <!DOCTYPE HTML >
 <html>
 	<head>
-		<title>共享文件管理</title>
+		<title>我的待办</title>
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
@@ -22,7 +22,7 @@
 
 $(function() {
 	$('#grid').datagrid( {
-		url : '../../app/listAllWorkOrder',
+		url : '../../app/listMyWorkOrderToBeProcessed',
 		pageSize : 15,
 		pageList : [ 15, 20, 30 ],
 		columns : [ [ {
@@ -312,6 +312,8 @@ function deleteById(){
 			<form id="admin_yhgl_searchForm">
 				主题：
 				<input id="title" class="easyui-textbox" name="title" />
+				<a href="javascript:void(0);" id="add"
+					class="easyui-linkbutton" iconCls="icon-add" onclick="addBatch()">添加</a>
 				<a href="javascript:void(0);" id="edit"
 					class="easyui-linkbutton" iconCls="icon-edit" onclick="editBatch()">修改</a>
 				<a href="javascript:void(0);" id="edit"
@@ -323,7 +325,7 @@ function deleteById(){
 			</form>
 		</div>
 		<div>
-			<table id="grid" toolbar="#tb" title="工单查询" iconCls="icon-search"
+			<table id="grid" toolbar="#tb" title="待办工单" iconCls="icon-search"
 				data-options="singleSelect:true,rownumbers:true,pagination:true,striped:true"></table>
 		</div>
 	</body>

@@ -97,6 +97,12 @@
     from work_order
     where id = #{id,jdbcType=BIGINT}
   </select>
+   <select id="getMyWorkOrderToBeProcessed" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select w.* 
+    from work_order w inner join work_order_ref_user r 
+    on w.id=r.work_order_id 
+    where r.state=1 and r.user_id = #{userId,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from work_order
     where id = #{id,jdbcType=BIGINT}

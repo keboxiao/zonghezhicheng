@@ -11,11 +11,12 @@
     <result column="state" jdbcType="INTEGER" property="state" />
   </resultMap>
   <resultMap id="InnerJoinMap" type="com.chinatelecom.model.WorkOrderRefUser" extends="BaseResultMap">
-    <association property="user" javaType="org.buzheng.demo.esm.domain.SysUser">
+    <association property="sysUser" javaType="org.buzheng.demo.esm.domain.SysUser">
     	<id column="user_id" jdbcType="VARCHAR" property="userId" />
 		<result column="username" jdbcType="VARCHAR" property="username" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
 	</association>
   </resultMap>
   <sql id="Example_Where_Clause">

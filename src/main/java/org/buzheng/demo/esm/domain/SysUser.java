@@ -26,6 +26,8 @@ public class SysUser {
 	private String groupName;
 	
 	private Date addTime;
+	
+	private String phone;
 		
 	public String getGroupName() {
 		return groupName;
@@ -97,6 +99,14 @@ public class SysUser {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override

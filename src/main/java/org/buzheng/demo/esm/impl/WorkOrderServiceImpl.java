@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.buzheng.demo.esm.service.WorkOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.chinatelecom.dao.WorkOrderMapper;
@@ -11,6 +12,7 @@ import com.chinatelecom.dao.WorkOrderRefUserMapper;
 import com.chinatelecom.model.WorkOrder;
 import com.chinatelecom.model.WorkOrderRefUser;
 
+@Service
 public class WorkOrderServiceImpl implements WorkOrderService {
 
 	@Autowired

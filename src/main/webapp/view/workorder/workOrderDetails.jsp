@@ -6,7 +6,7 @@
 		<form id="orderForm" name="orderForm" method="post" >
 		<table class="editTable" height="100px">
 			<tr height="35px">
-				<td colspan="4" bgcolor="#D2E9FF" align="center" style="font-weight: bold">新建工单</td>
+				<td colspan="4" bgcolor="#D2E9FF" align="center" style="font-weight: bold">处理工单</td>
 			</tr>
 			<tr height="35px">
 				<td width="25%" class="oddTd">工单标题 ：</td>
@@ -62,10 +62,27 @@
 				<td width="25%" class="oddTd">事件影响度 ：</td>
 				<td align="center">
 					<input style="width:98%;height:100%" id="influence" name="influence" />
+					<input type="hidden" id="id" name="id" />
 				</td>
-				<td class="oddTd" width="20%"></td>
+				<td class="oddTd" width="20%">处理方式：</td>
 				<td align="center">
-					
+				<select id="chulifangshi" name="chulifangshi">
+					<option value="all" selected>
+						请选择
+					</option>
+					<option value="1">
+						转他人处理
+					</option>
+					<option value="2">
+						办结
+					</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td width="25%" class="oddTd">处理意见 ：</td>
+				<td align="center" colspan="3">
+					<input class="easyui-textbox" name="remark" style="width:600px;height:80px" data-options="multiline:true">
 				</td>
 			</tr>
 			<tr>

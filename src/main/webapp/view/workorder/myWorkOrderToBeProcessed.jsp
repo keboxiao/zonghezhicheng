@@ -189,7 +189,7 @@ function processWorkOrder() {
 	}	
 	var row = rowsData[0];
 	if (row) {
-		$("#dlgDetails").dialog("open").dialog('setTitle', '修改');
+		$("#dlgDetails").dialog("open").dialog('setTitle', '处理工单');
 		$("#orderForm").form("load", row);
 		$("#batch_no").attr('value',row.id);
 		$('#workOrderDetails').datagrid( {
@@ -209,7 +209,7 @@ function processWorkOrder() {
 			}, {
 				field : 'a',
 				title : '处理人电话',
-				width : 80,
+				width : 160,
 				align : 'center',
 				formatter: function (value,row,index) { 
 					return row.sysUser.phone;
@@ -217,18 +217,18 @@ function processWorkOrder() {
 			}, {
 				field : 'reachTime',
 				title : '到达时间',
-				width : 100,
+				width : 120,
 				align : 'center'
 			}, {
 				field:'remark',
 				title:'处理意见',
 				align:'center',
-				width : 100
+				width : 200
 			}, {
 				field:'state',
 				title:'状态',
 				align:'center',
-				width : 100
+				width : 80
 			} ] ]
 		});
 	}

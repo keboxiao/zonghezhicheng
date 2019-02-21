@@ -36,7 +36,8 @@
 	    		u.role_id, 
 	    		r.role_name,
 	    		u.group_id,
-	    		g.group_name
+	    		g.group_name,
+	    		u.phone
 	    FROM sys_user u
 	    LEFT JOIN sys_role r ON u.role_id = r.role_id
 	    LEFT JOIN sys_group g ON u.group_id = g.group_id

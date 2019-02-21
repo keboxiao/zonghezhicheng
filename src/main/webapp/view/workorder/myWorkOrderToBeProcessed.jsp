@@ -75,12 +75,12 @@ $(function() {
 	});
 });
 
-function savebatch() {
-	$.messager.confirm('确认', '您确定要保存？', function(r) {
+function processbatch() {
+	$.messager.confirm('确认', '您确定要处理吗？', function(r) {
 		$.ajax( {
 			type : 'POST',
-			url : '../../app/updateFileBatch',
-			data : $('#batchForm').serialize(),
+			url : '../../app/transmitWorkOrderToOthers',
+			data : $('#orderForm').serialize(),
 			dataType : 'json',
 			success : function(r) {
 				$.messager.show( {

@@ -79,6 +79,29 @@
 				</select>
 				</td>
 			</tr>
+			<tr height="35px">
+				<td width="25%" class="oddTd">下一个处理人 ：</td>
+				<td align="center">
+					<select id="targetUserId" name="targetUserId">
+					<option value="all" selected>
+						请选择
+					</option>
+					<option value="1">
+						善良的禽兽
+					</option>
+					<option value="2">
+						柯博晓
+					</option>
+					<option value="3">
+						廖晓华
+					</option>
+				</select>
+				</td>
+				<td class="oddTd" width="20%"></td>
+				<td align="center">
+				
+				</td>
+			</tr>
 			<tr>
 				<td width="25%" class="oddTd">处理意见 ：</td>
 				<td align="center" colspan="3">
@@ -96,7 +119,7 @@
 </div>
 <div id="editdlg-buttons">
 	<a href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="savebatch()" iconcls="icon-save">保存</a> <a
+		onclick="processbatch()" iconcls="icon-save">保存</a> <a
 		href="javascript:void(0)" class="easyui-linkbutton"
 		onclick="javascript:$('#dlgDetails').dialog('close')"
 		iconcls="icon-cancel">取消</a>

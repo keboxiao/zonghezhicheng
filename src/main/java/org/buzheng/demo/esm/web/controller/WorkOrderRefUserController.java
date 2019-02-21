@@ -23,7 +23,7 @@ public class WorkOrderRefUserController {
 	@ResponseBody
 	public Json transmitToOthers(HttpServletRequest request, HttpSession session) {
 		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
-		Long workOrderId = Long.parseLong(request.getParameter("orderId"));
+		Long workOrderId = Long.parseLong(request.getParameter("id"));
 		String remark = request.getParameter("remark");
 		Long targetUserId = Long.parseLong(request.getParameter("targetUserId"));
 		workOrderRefUserService.transmitToOthers(workOrderId, user.getUserId(), remark, targetUserId);

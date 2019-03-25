@@ -244,123 +244,113 @@ public class UpFileExample {
             return (Criteria) this;
         }
 
-        public Criteria andUseridEqualTo(String value) {
+        public Criteria andUseridEqualTo(Long value) {
             addCriterion("userid =", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotEqualTo(String value) {
+        public Criteria andUseridNotEqualTo(Long value) {
             addCriterion("userid <>", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThan(String value) {
+        public Criteria andUseridGreaterThan(Long value) {
             addCriterion("userid >", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThanOrEqualTo(String value) {
+        public Criteria andUseridGreaterThanOrEqualTo(Long value) {
             addCriterion("userid >=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThan(String value) {
+        public Criteria andUseridLessThan(Long value) {
             addCriterion("userid <", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThanOrEqualTo(String value) {
+        public Criteria andUseridLessThanOrEqualTo(Long value) {
             addCriterion("userid <=", value, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLike(String value) {
-            addCriterion("userid like", value, "userid");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseridNotLike(String value) {
-            addCriterion("userid not like", value, "userid");
-            return (Criteria) this;
-        }
-
-        public Criteria andUseridIn(List<String> values) {
+        public Criteria andUseridIn(List<Long> values) {
             addCriterion("userid in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotIn(List<String> values) {
+        public Criteria andUseridNotIn(List<Long> values) {
             addCriterion("userid not in", values, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridBetween(String value1, String value2) {
+        public Criteria andUseridBetween(Long value1, Long value2) {
             addCriterion("userid between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotBetween(String value1, String value2) {
+        public Criteria andUseridNotBetween(Long value1, Long value2) {
             addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoIsNull() {
-            addCriterion("detail_no is null");
+        public Criteria andFileClassIsNull() {
+            addCriterion("file_class is null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoIsNotNull() {
-            addCriterion("detail_no is not null");
+        public Criteria andFileClassIsNotNull() {
+            addCriterion("file_class is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoEqualTo(Long value) {
-            addCriterion("detail_no =", value, "detailNo");
+        public Criteria andFileClassEqualTo(Integer value) {
+            addCriterion("file_class =", value, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoNotEqualTo(Long value) {
-            addCriterion("detail_no <>", value, "detailNo");
+        public Criteria andFileClassNotEqualTo(Integer value) {
+            addCriterion("file_class <>", value, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoGreaterThan(Long value) {
-            addCriterion("detail_no >", value, "detailNo");
+        public Criteria andFileClassGreaterThan(Integer value) {
+            addCriterion("file_class >", value, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoGreaterThanOrEqualTo(Long value) {
-            addCriterion("detail_no >=", value, "detailNo");
+        public Criteria andFileClassGreaterThanOrEqualTo(Integer value) {
+            addCriterion("file_class >=", value, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoLessThan(Long value) {
-            addCriterion("detail_no <", value, "detailNo");
+        public Criteria andFileClassLessThan(Integer value) {
+            addCriterion("file_class <", value, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoLessThanOrEqualTo(Long value) {
-            addCriterion("detail_no <=", value, "detailNo");
+        public Criteria andFileClassLessThanOrEqualTo(Integer value) {
+            addCriterion("file_class <=", value, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoIn(List<Long> values) {
-            addCriterion("detail_no in", values, "detailNo");
+        public Criteria andFileClassIn(List<Integer> values) {
+            addCriterion("file_class in", values, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoNotIn(List<Long> values) {
-            addCriterion("detail_no not in", values, "detailNo");
+        public Criteria andFileClassNotIn(List<Integer> values) {
+            addCriterion("file_class not in", values, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoBetween(Long value1, Long value2) {
-            addCriterion("detail_no between", value1, value2, "detailNo");
+        public Criteria andFileClassBetween(Integer value1, Integer value2) {
+            addCriterion("file_class between", value1, value2, "fileClass");
             return (Criteria) this;
         }
 
-        public Criteria andDetailNoNotBetween(Long value1, Long value2) {
-            addCriterion("detail_no not between", value1, value2, "detailNo");
+        public Criteria andFileClassNotBetween(Integer value1, Integer value2) {
+            addCriterion("file_class not between", value1, value2, "fileClass");
             return (Criteria) this;
         }
 

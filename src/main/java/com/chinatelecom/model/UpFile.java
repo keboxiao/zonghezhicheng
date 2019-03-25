@@ -7,7 +7,7 @@ public class UpFile {
 
     private Long userid;
 
-    private Long detailNo;
+    private Integer fileClass;
 
     private Long batchNo;
 
@@ -30,19 +30,19 @@ public class UpFile {
     }
 
     public Long getUserid() {
-		return userid;
-	}
-
-	public void setUserid(Long userid) {
-		this.userid = userid;
-	}
-
-	public Long getDetailNo() {
-        return detailNo;
+        return userid;
     }
 
-    public void setDetailNo(Long detailNo) {
-        this.detailNo = detailNo;
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public Integer getFileClass() {
+        return fileClass;
+    }
+
+    public void setFileClass(Integer fileClass) {
+        this.fileClass = fileClass;
     }
 
     public Long getBatchNo() {

@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.chinatelecom.model.UpFile">
     <id column="no" jdbcType="BIGINT" property="no" />
     <result column="filename" jdbcType="VARCHAR" property="filename" />
-    <result column="userid" jdbcType="VARCHAR" property="userid" />
-    <result column="detail_no" jdbcType="BIGINT" property="detailNo" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="file_class" jdbcType="INTEGER" property="fileClass" />
     <result column="batch_no" jdbcType="BIGINT" property="batchNo" />
     <result column="upload_time" jdbcType="VARCHAR" property="uploadTime" />
   </resultMap>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    no, filename, userid, detail_no, batch_no, upload_time
+    no, filename, userid, file_class, batch_no, upload_time
   </sql>
   <select id="selectByExample" parameterType="com.chinatelecom.model.UpFileExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
   </delete>
   <insert id="insert" parameterType="com.chinatelecom.model.UpFile">
     insert into upfile (no, filename, userid, 
-      detail_no, batch_no, upload_time
+      file_class, batch_no, upload_time
       )
-    values (#{no,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
-      #{detailNo,jdbcType=BIGINT}, #{batchNo,jdbcType=BIGINT}, #{uploadTime,jdbcType=VARCHAR}
+    values (#{no,jdbcType=BIGINT}, #{filename,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, 
+      #{fileClass,jdbcType=INTEGER}, #{batchNo,jdbcType=BIGINT}, #{uploadTime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.chinatelecom.model.UpFile">
@@ -120,8 +120,8 @@
       <if test="userid != null">
         userid,
       </if>
-      <if test="detailNo != null">
-        detail_no,
+      <if test="fileClass != null">
+        file_class,
       </if>
       <if test="batchNo != null">
         batch_no,
@@ -138,10 +138,10 @@
         #{filename,jdbcType=VARCHAR},
       </if>
       <if test="userid != null">
-        #{userid,jdbcType=VARCHAR},
+        #{userid,jdbcType=BIGINT},
       </if>
-      <if test="detailNo != null">
-        #{detailNo,jdbcType=BIGINT},
+      <if test="fileClass != null">
+        #{fileClass,jdbcType=INTEGER},
       </if>
       <if test="batchNo != null">
         #{batchNo,jdbcType=BIGINT},
@@ -167,10 +167,10 @@
         filename = #{record.filename,jdbcType=VARCHAR},
       </if>
       <if test="record.userid != null">
-        userid = #{record.userid,jdbcType=VARCHAR},
+        userid = #{record.userid,jdbcType=BIGINT},
       </if>
-      <if test="record.detailNo != null">
-        detail_no = #{record.detailNo,jdbcType=BIGINT},
+      <if test="record.fileClass != null">
+        file_class = #{record.fileClass,jdbcType=INTEGER},
       </if>
       <if test="record.batchNo != null">
         batch_no = #{record.batchNo,jdbcType=BIGINT},
@@ -187,8 +187,8 @@
     update upfile
     set no = #{record.no,jdbcType=BIGINT},
       filename = #{record.filename,jdbcType=VARCHAR},
-      userid = #{record.userid,jdbcType=VARCHAR},
-      detail_no = #{record.detailNo,jdbcType=BIGINT},
+      userid = #{record.userid,jdbcType=BIGINT},
+      file_class = #{record.fileClass,jdbcType=INTEGER},
       batch_no = #{record.batchNo,jdbcType=BIGINT},
       upload_time = #{record.uploadTime,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -202,10 +202,10 @@
         filename = #{filename,jdbcType=VARCHAR},
       </if>
       <if test="userid != null">
-        userid = #{userid,jdbcType=VARCHAR},
+        userid = #{userid,jdbcType=BIGINT},
       </if>
-      <if test="detailNo != null">
-        detail_no = #{detailNo,jdbcType=BIGINT},
+      <if test="fileClass != null">
+        file_class = #{fileClass,jdbcType=INTEGER},
       </if>
       <if test="batchNo != null">
         batch_no = #{batchNo,jdbcType=BIGINT},
@@ -219,8 +219,8 @@
   <update id="updateByPrimaryKey" parameterType="com.chinatelecom.model.UpFile">
     update upfile
     set filename = #{filename,jdbcType=VARCHAR},
-      userid = #{userid,jdbcType=VARCHAR},
-      detail_no = #{detailNo,jdbcType=BIGINT},
+      userid = #{userid,jdbcType=BIGINT},
+      file_class = #{fileClass,jdbcType=INTEGER},
       batch_no = #{batchNo,jdbcType=BIGINT},
       upload_time = #{uploadTime,jdbcType=VARCHAR}
     where no = #{no,jdbcType=BIGINT}

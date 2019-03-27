@@ -116,6 +116,34 @@
 		</table>
 	</form>
 	<table id="workOrderDetails"></table>
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" frame="box">
+		<tr height='35px'>
+			<td  style="font-size:16px" class="oddTd" colspan="2" >
+				 附件 
+			</td>
+		</tr>
+		<tr height='35px'>
+			<form id="uploadForm" name="uploadForm" enctype="multipart/form-data"
+				method="post">
+			<td align="left" style="width: 90px">
+				<div id="newUpload2">
+					<input id="file" type="file" name="file" multiple="true">
+				</div>
+			</td>
+			<td>
+				<input type="button" onclick="javascript:loadFile();" value="上传文件"/>
+				<input type="hidden" id="batch_no" name="batch_no" />
+				<input type="hidden" value="2" id="file_class" name="file_class" />
+				<input type="button" onclick="javascript:deleteFile();" value="删除文件"/>
+			</td>
+			</form>
+		</tr>
+		<tr>
+			<td colspan="2" align="left">
+				<div id="filegrid" />
+			</td>
+		</tr>
+	</table>
 </div>
 <div id="editdlg-buttons">
 	<a href="javascript:void(0)" class="easyui-linkbutton"

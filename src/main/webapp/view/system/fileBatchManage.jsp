@@ -184,6 +184,7 @@ function editBatchById(row) {
 		$("#dlgDetails").dialog("open").dialog('setTitle', '修改');
 		$("#batchForm").form("load", row);
 		$("#batch_no").attr('value',row.id);
+		//$("#file_class").attr('value',1);
 		$('#filegrid').datagrid( {
 			url : '../../app/listFileByBatchId?id='+id,
 			striped : true,
@@ -234,7 +235,7 @@ function editBatch() {
 		$("#batchForm").form("load", row);
 		$("#batch_no").attr('value',row.id);
 		$('#filegrid').datagrid( {
-			url : '../../app/listFileByBatchId?id='+row.id,
+			url : '../../app/listFileByBatchId?id='+row.id+'&file_class=1',
 			striped : true,
 			rownumbers : true,
 			singleSelect:true,
@@ -344,7 +345,7 @@ function deleteById(){
 	}
 }
 </script>
-
+<% boolean flag = true; %>
 	</head>
 	<%@ include file="batchDetails.jsp" %>
 	<%@ include file="commit_detail.jsp" %>

@@ -30,6 +30,7 @@
 				 附件 
 			</td>
 		</tr>
+		<% if(flag) { %>
 		<tr height='35px'>
 			<form id="userForm" name="userForm2" enctype="multipart/form-data"
 				method="post">
@@ -41,10 +42,12 @@
 			<td>
 				<input type="button" onclick="javascript:loadFile();" value="上传文件"/>
 				<input type="hidden" id="batch_no" name="batch_no" />
+				<input type="hidden" value="1" id="file_class" name="file_class" />
 				<input type="button" onclick="javascript:deleteFile();" value="删除文件"/>
 			</td>
 			</form>
 		</tr>
+		<% } %>
 		<tr>
 			<td colspan="2" align="left">
 				<div id="filegrid" />

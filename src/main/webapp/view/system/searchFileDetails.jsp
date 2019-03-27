@@ -234,7 +234,7 @@ function editBatch() {
 		$("#batchForm").form("load", row);
 		$("#batch_no").attr('value',row.id);
 		$('#filegrid').datagrid( {
-			url : '../../app/listFileByBatchId?id='+row.id,
+			url : '../../app/listFileByBatchId?id='+row.id+'&file_class=1',
 			striped : true,
 			rownumbers : true,
 			singleSelect:true,
@@ -344,10 +344,9 @@ function deleteById(){
 	}
 }
 </script>
-
+<% boolean flag = false; %>
 	</head>
 	<%@ include file="batchDetails.jsp" %>
-	<%@ include file="commit_detail.jsp" %>
 	<body align="center">
 
 		<div id="tb" style="padding: 3px"

@@ -60,7 +60,8 @@ public class UpFileController {
 				if (file != null) {
 					// String username = request.getParameter("username");
 					String batch_no = request.getParameter("batch_no");
-					String fileName = batch_no + "_" + file.getOriginalFilename();
+					String file_class = request.getParameter("file_class");
+					String fileName = file_class + "_" + batch_no + "_" + file.getOriginalFilename();
 					String path = "d:/upload_file/" + fileName;
 					file.transferTo(new File(path));
 					UpFile upFile = new UpFile();
@@ -68,6 +69,7 @@ public class UpFileController {
 					upFile.setBatchNo(Long.parseLong(batch_no));
 					upFile.setUploadTime(new Date().toString());
 					upFile.setUserid(user.getUserId());
+					upFile.setFileClass(Integer.parseInt(file_class));
 					upFileMapper.insertSelective(upFile);
 					String msg = "上传成功";
 					j.setSuccess(true);
@@ -87,9 +89,11 @@ public class UpFileController {
 	@ResponseBody
 	public List<UpFile> listFileByBatchId(HttpServletRequest request) throws IllegalStateException, IOException {
 		String id = request.getParameter("id");
+		String fileClass = request.getParameter("file_class");
 		UpFileExample example = new UpFileExample();
 		UpFileExample.Criteria criteria = example.createCriteria();
 		criteria.andBatchNoEqualTo(Long.parseLong(id));
+		criteria.andFileClassEqualTo(Integer.parseInt(fileClass));
 		return upFileMapper.selectByExample(example);
 	}
 

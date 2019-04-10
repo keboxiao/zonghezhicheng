@@ -76,11 +76,23 @@ $(function() {
 });
 
 function processbatch() {
+	var objRows = $('#nextHandler').datagrid('getRows');
+	//var rows = $('#grid').datagrid('getSelected');
+	//var rows = $('#grid').datagrid('getSelections');
+	var ids = [];
 	$.messager.confirm('确认', '您确定要处理吗？', function(r) {
+		for ( var i = 0; i < objRows.length; i++) {
+			ids.push(objRows[i].userId);
+		}
 		$.ajax( {
 			type : 'POST',
 			url : '../../app/transmitWorkOrderToOthers',
-			data : $('#orderForm').serialize(),
+			data : {
+				targetUserIds : ids.join(','),
+				id : document.getElementById("id").value,
+				remark : document.getElementById("remark").value,
+				chulifangshi : document.getElementById("chulifangshi").value
+			},
 			dataType : 'json',
 			success : function(r) {
 				$.messager.show( {
@@ -92,6 +104,23 @@ function processbatch() {
 			}
 		});
 	});
+}
+
+function createWorkOrder() {
+		$.ajax( {
+			type : 'POST',
+			url : '../../app/createWorkOrder',
+			data : $('#createOrderForm').serialize(),
+			dataType : 'json',
+			success : function(r) {
+				$.messager.show( {
+					title : '提示',
+					msg : r.msg
+				});
+				$("#dlgAdd").dialog("close");
+				$("#grid").datagrid("load");
+			}
+		});
 }
 
 serializeObject = function(form) {
@@ -264,6 +293,87 @@ function processWorkOrder() {
 			} ] ]
 		});
 	}
+	$('#nextHandler').datagrid({
+		url : '',
+		loadMsg : '数据加载中,请稍候...',
+		rownumbers : true,
+		singleSelect : false,//单选还是多选
+		striped : true,
+		fit : true,//自适应大小
+		nowrap : false,//数据长度超出列宽时将会自动截取。
+		columns : [ [
+			{
+				title : '对象ID',
+				field : 'id',
+				checkbox:true
+			},{
+				title : '姓名',
+				field : 'name',
+				width : 100
+			},{
+				title : '部门',
+				field : 'groupName',
+				width : 200
+			},{
+				title : '联系电话',
+				field : 'phone',
+				width : 300
+			}
+			] ],
+			toolbar:[ {
+				id : 'objectBtnAdd',
+				text : '人员选择',
+				iconCls : 'icon-add',
+				handler : function() {
+					$("#dlgrenyuan").dialog("open").dialog('setTitle', '选择');
+						//数据表格
+					$('#gridrenyuan').datagrid({
+						url : '<%=request.getContextPath() %>/app/sys/user/findByName',
+						loadMsg : '数据加载中,请稍候...',
+						rownumbers : true,
+						pagination : true, //分页控件
+						pageList : [ 10, 15, 20, 30, 40, 50, 100 ],
+						pageSize : 20,
+						singleSelect : false,//单选还是多选
+						striped : true,
+						fit : true,//自适应大小
+						fitColumns:true,
+						nowrap : false,//数据长度超出列宽时将会自动截取。
+						columns : [ [
+							{
+								title : '对象ID',
+								field : 'id',
+								checkbox:true
+							},{
+								title : '姓名',
+								field : 'name'
+							},{
+								title : '部门',
+								field : 'groupName'
+							},{
+								title : '联系电话',
+								field : 'phone'
+							}  ] ]
+					});
+				}
+			},{
+				id : 'objectBtnDel',
+				text : '删除',
+				iconCls : 'icon-cancel',
+				handler : function() {
+					var rows = $('#nextHandler').datagrid('getSelections');
+					if(rows == null || rows.length<1) {
+						$.messager.alert("提示", "请选择要删除的数据");
+						return false;
+					}
+					for(var i=0;i<rows.length;i++) {
+						var row = rows[i];
+						var rowIndex = $('#nextHandler').datagrid('getRowIndex',row);
+						delDataGridRow("nextHandler",rowIndex);
+					}
+				}
+			} ]
+	});
 }
 
 function loadFile(){
@@ -340,6 +450,59 @@ function deleteById(){
 			title : '提示',
 			msg : '请选择要删除的记录！'
 		});
+	}
+}
+
+serializeObject = function(form) {
+	var o = {};
+	$.each(form.serializeArray(), function(index) {
+		if (o[this['name']]) {
+			o[this['name']] = o[this['name']] + "," + this['value'];
+		} else {
+			o[this['name']] = this['value'];
+		}
+	});
+	return o;
+};
+
+function searchFun() {
+	$('#gridrenyuan').datagrid('load', serializeObject($('#renyuanForm')));
+}
+
+function clearFun() {
+	$('#name').textbox('setValue', '');
+	$('#gridrenyuan').datagrid('load', {});
+}
+
+function delDataGridRow(gridId,index){
+	$('#'+gridId).datagrid('deleteRow',index); 
+}
+
+function saveOnlyFunc(){
+	var objRows = $('#nextHandler').datagrid('getRows');
+	var rows = $('#gridrenyuan').datagrid('getSelections');
+	var flag = true;
+	if(rows == null || rows.length<1){
+		$.messager.alert("提示", "请选择数据");
+		return false;
+	}
+	//snc
+	for(var i=0;i<rows.length;i++){
+		for(var j=0;j<objRows.length;j++){
+			if(objRows[j].userId==rows[i].userId){
+				flag = false;
+				break;
+			}
+		}
+		if(flag){
+			$('#nextHandler').datagrid('appendRow',{
+				userId:rows[i].userId,
+				name: rows[i].name,
+				groupName : rows[i].groupName,
+				phone: rows[i].phone		
+			});
+		}
+		flag=true;
 	}
 }
 </script>

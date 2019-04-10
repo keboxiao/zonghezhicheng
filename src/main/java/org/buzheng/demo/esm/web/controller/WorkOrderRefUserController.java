@@ -25,12 +25,17 @@ public class WorkOrderRefUserController {
 		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
 		Long workOrderId = Long.parseLong(request.getParameter("id"));
 		String remark = request.getParameter("remark");
-		Long targetUserId = Long.parseLong(request.getParameter("targetUserId"));
-		workOrderRefUserService.transmitToOthers(workOrderId, user.getUserId(), remark, targetUserId);
+		String targetUserIds = request.getParameter("targetUserIds");
+		String chulifangshi = request.getParameter("chulifangshi");
 		Json j = new Json();
-		String msg = "转派成功";
+		if (chulifangshi.equals("1")) {
+			workOrderRefUserService.transmitToOthers(workOrderId, user.getUserId(), remark, targetUserIds);
+			j.setMsg("转派成功");
+		} else if (chulifangshi.equals("2")) {
+			workOrderRefUserService.endThisProcess(workOrderId, user.getUserId(), remark);
+			j.setMsg("办结成功");
+		}
 		j.setSuccess(true);
-		j.setMsg(msg);
 		return j;
 	}
 

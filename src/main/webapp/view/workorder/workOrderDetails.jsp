@@ -80,42 +80,40 @@
 				</td>
 			</tr>
 			<tr height="35px">
-				<td width="25%" class="oddTd">下一个处理人 ：</td>
-				<td align="center">
-					<select id="targetUserId" name="targetUserId">
-					<option value="all" selected>
-						请选择
-					</option>
-					<option value="1">
-						善良的禽兽
-					</option>
-					<option value="2">
-						柯博晓
-					</option>
-					<option value="3">
-						廖晓华
-					</option>
-				</select>
-				</td>
-				<td class="oddTd" width="20%"></td>
-				<td align="center">
+				<td width="25%" align="left" class="oddTd" colspan="4">下一个处理人 ：</td>
 				
+			</tr>
+			<tr>
+				<td align="center" colspan="4">
+				<div style="height: 200px;">
+					<table id="nextHandler"></table>
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<td width="25%" class="oddTd">处理意见 ：</td>
 				<td align="center" colspan="3">
-					<input class="easyui-textbox" name="remark" style="width:600px;height:80px" data-options="multiline:true">
+					<input class="easyui-textbox" id="remark" name="remark" style="width:600px;height:80px" data-options="multiline:true">
 				</td>
 			</tr>
 			<tr>
 				<td height="35" colspan="4">
-					
 				</td>
 			</tr>
 		</table>
 	</form>
-	<table id="workOrderDetails"></table>
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" frame="box">
+		<tr height='35px'>
+			<td  style="font-size:16px" class="oddTd" colspan="2" >
+				 流程跟踪：
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table id="workOrderDetails" style="width: 100%; height: 150px;"></table>
+			</td>
+		</tr>
+	</table>
 	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="1" frame="box">
 		<tr height='35px'>
 			<td  style="font-size:16px" class="oddTd" colspan="2" >
@@ -140,15 +138,41 @@
 		</tr>
 		<tr>
 			<td colspan="2" align="left">
-				<div id="filegrid" />
+				<div id="filegrid" style="width: 100%; height: 150px;"></div>
 			</td>
 		</tr>
 	</table>
 </div>
 <div id="editdlg-buttons">
 	<a href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="processbatch()" iconcls="icon-save">保存</a> <a
-		href="javascript:void(0)" class="easyui-linkbutton"
+		onclick="processbatch()" iconcls="icon-save">保存</a> 
+		<a href="javascript:void(0)" class="easyui-linkbutton"
 		onclick="javascript:$('#dlgDetails').dialog('close')"
 		iconcls="icon-cancel">取消</a>
 </div>
+
+
+<div id="dlgrenyuan" class="easyui-dialog" toolbar="#tb" buttons="#renyuan-buttons"
+	style="width: 500px; height: 300px; padding: 10px 20px;" closed="true">
+	<div id="gridrenyuan"></div>
+</div>
+	
+<div id="renyuan-buttons">
+ <a href="javascript:void(0)" class="easyui-linkbutton"
+		onclick="javascript:$('#dlgrenyuan').dialog('close')"
+		iconcls="icon-cancel">关闭</a>
+</div>	
+
+<div id="tb" style="padding: 3px"
+			data-options="region:'north',title:'查询条件',border:false">
+			<form id="renyuanForm">
+				姓名：
+				<input id="name" class="easyui-textbox" name="name" />
+				<a href="javascript:void(0);" class="easyui-linkbutton"
+					data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
+				<a href="javascript:void(0);" class="easyui-linkbutton"
+					data-options="iconCls:'icon-redo'" onclick="clearFun();">清空</a>
+					<a href="javascript:void(0);" class="easyui-linkbutton"
+					data-options="iconCls:'icon-add'" onclick="saveOnlyFunc();">保存</a>
+			</form>
+		</div>

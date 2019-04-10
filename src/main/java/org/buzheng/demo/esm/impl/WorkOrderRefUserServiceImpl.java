@@ -30,7 +30,7 @@ public class WorkOrderRefUserServiceImpl implements WorkOrderRefUserService {
 
 	@Override
 	@Transactional
-	public boolean transmitToOthers(Long workOrderId, Long sourceUserId, String remark, Long targetUserId) {
+	public boolean transmitToOthers(Long workOrderId, Long sourceUserId, String remark, String targetUserIds) {
 		WorkOrderRefUserExample example = new WorkOrderRefUserExample();
 		WorkOrderRefUserExample.Criteria criteria = example.createCriteria();
 		criteria.andWorkOrderIdEqualTo(workOrderId);
@@ -42,14 +42,33 @@ public class WorkOrderRefUserServiceImpl implements WorkOrderRefUserService {
 		workOrderRefUser.setFinishTime(new Date());
 		workOrderRefUser.setState(3);
 		workOrderRefUserMapper.updateByPrimaryKey(workOrderRefUser);
-		WorkOrderRefUser newWorkOrderRef = new WorkOrderRefUser();
-		newWorkOrderRef.setReachTime(new Date());
-		newWorkOrderRef.setState(1);
-		newWorkOrderRef.setUserId(targetUserId);
-		newWorkOrderRef.setWorkOrderId(workOrderRefUser.getWorkOrderId());
-		workOrderRefUserMapper.insert(newWorkOrderRef);
-		SysUser sysUser = sysUserDao.findByUserId(targetUserId.toString());
-		String res = sendSms(sysUser.getPhone());
+		String[] tuids = targetUserIds.split(",");
+		for (String targetUserId : tuids) {
+			WorkOrderRefUser newWorkOrderRef = new WorkOrderRefUser();
+			newWorkOrderRef.setReachTime(new Date());
+			newWorkOrderRef.setState(1);
+			newWorkOrderRef.setUserId(Long.parseLong(targetUserId));
+			newWorkOrderRef.setWorkOrderId(workOrderRefUser.getWorkOrderId());
+			workOrderRefUserMapper.insert(newWorkOrderRef);
+			SysUser sysUser = sysUserDao.findByUserId(targetUserId.toString());
+			// String res = sendSms(sysUser.getPhone());
+		}
+		return true;
+	}
+
+	@Transactional
+	public boolean endThisProcess(Long workOrderId, Long sourceUserId, String remark) {
+		WorkOrderRefUserExample example = new WorkOrderRefUserExample();
+		WorkOrderRefUserExample.Criteria criteria = example.createCriteria();
+		criteria.andWorkOrderIdEqualTo(workOrderId);
+		criteria.andUserIdEqualTo(sourceUserId);
+		criteria.andStateEqualTo(1);
+		List<WorkOrderRefUser> list = workOrderRefUserMapper.selectByExample(example);
+		WorkOrderRefUser workOrderRefUser = list.get(0);
+		workOrderRefUser.setRemark(remark);
+		workOrderRefUser.setFinishTime(new Date());
+		workOrderRefUser.setState(3);
+		workOrderRefUserMapper.updateByPrimaryKey(workOrderRefUser);
 		return true;
 	}
 
@@ -58,7 +77,9 @@ public class WorkOrderRefUserServiceImpl implements WorkOrderRefUserService {
 		String CII_account = "mmftth";
 		String CII_password = "Dxfs+2018";
 		String SMS_content = "号码：18999999999,账号：mmtest,故障：测试发短信，处理完向用户确认";
-		String[] array_receivers = new String[1];//{ "13376688127","18929797513" };
+		String[] array_receivers = new String[1];// {
+													// "13376688127","18929797513"
+													// };
 		array_receivers[0] = targetPhone;
 		String SMS_password = "";
 		String SMS_sender = "";

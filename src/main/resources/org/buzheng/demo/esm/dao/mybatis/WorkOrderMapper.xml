@@ -113,7 +113,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.chinatelecom.model.WorkOrder">
+  <insert id="insert" parameterType="com.chinatelecom.model.WorkOrder" useGeneratedKeys="true" keyProperty="id">
     insert into work_order (id, title, groupid, 
       affect_scope, service_type, contacts, 
       tel, first_system, happen_time, 

@@ -177,7 +177,7 @@ function editBatchById(row) {
 	}
 }
 
-function editBatch() {
+function details() {
 	var rowsData = $('#grid').datagrid('getSelections');
 	if (!rowsData || rowsData.length==0) {
 		tip('请选择一行数据');
@@ -189,11 +189,51 @@ function editBatch() {
 	}	
 	var row = rowsData[0];
 	if (row) {
-		$("#dlgDetails").dialog("open").dialog('setTitle', '修改');
-		$("#batchForm").form("load", row);
+		$("#dlgDetails").dialog("open").dialog('setTitle', '详情');
+		$("#orderForm").form("load", row);
+		$("#batch_no").attr('value',row.id);
+		$('#workOrderDetails').datagrid( {
+			url : '../../app/listOrderDetails?workOrderId='+row.id,
+			striped : true,
+			rownumbers : true,
+			singleSelect:true,
+			fitColumns: false,
+			columns : [ [ {
+				field : 'sysUser',
+				title : '处理人',
+				width : 100,
+				align : 'center',
+				formatter: function (value) { 
+					return value.name;
+				}
+			}, {
+				field : 'a',
+				title : '处理人电话',
+				width : 160,
+				align : 'center',
+				formatter: function (value,row,index) { 
+					return row.sysUser.phone;
+				}
+			}, {
+				field : 'reachTime',
+				title : '到达时间',
+				width : 120,
+				align : 'center'
+			}, {
+				field:'remark',
+				title:'处理意见',
+				align:'center',
+				width : 200
+			}, {
+				field:'state',
+				title:'状态',
+				align:'center',
+				width : 80
+			} ] ]
+		});
 		$("#batch_no").attr('value',row.id);
 		$('#filegrid').datagrid( {
-			url : '../../app/listFileByBatchId?id='+row.id,
+			url : '../../app/listFileByBatchId?id='+row.id+'&file_class=2',
 			striped : true,
 			rownumbers : true,
 			singleSelect:true,
@@ -307,13 +347,14 @@ function deleteById(){
 	</head>
 	<body align="center">
 	<%@ include file="createWorkOrder.jsp" %>
+	<%@ include file="workOrderDetails.jsp" %>
 		<div id="tb" style="padding: 3px"
 			data-options="region:'north',title:'查询条件',border:false">
 			<form id="admin_yhgl_searchForm">
 				主题：
 				<input id="title" class="easyui-textbox" name="title" />
 				<a href="javascript:void(0);" id="edit"
-					class="easyui-linkbutton" iconCls="icon-edit" onclick="editBatch()">修改</a>
+					class="easyui-linkbutton" iconCls="icon-edit" onclick="details()">详情</a>
 				<a href="javascript:void(0);" id="edit"
 					class="easyui-linkbutton" iconCls="icon-cancel" onclick="deleteById()">删除</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"

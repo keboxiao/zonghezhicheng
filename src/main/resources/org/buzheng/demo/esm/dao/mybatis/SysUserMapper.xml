@@ -65,6 +65,9 @@
 	        <if test="params.groupId != null">
 	            u.group_id = #{params.groupId}
 	        </if>
+	        <if test="params.name != null">
+	            u.name = #{params.name}
+	        </if>
 	    </where>
 	    
 	    ORDER BY u.add_time

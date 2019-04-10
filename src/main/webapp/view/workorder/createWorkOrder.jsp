@@ -2,7 +2,7 @@
 
 <div id="dlgAdd" class="easyui-dialog" style="width: 900px; height: 600px; padding: 10px 20px;" closed="true"
 	buttons="#adddlg-buttons">
-	<form id="userForm1" name="userForm" method="post" >
+	<form id="createOrderForm" name="createOrderForm" method="post" >
 		<table class="editTable" height="100px">
 			<tr height="35px">
 				<td colspan="4" bgcolor="#D2E9FF" align="center" style="font-weight: bold">新建工单</td>
@@ -67,21 +67,13 @@
 					
 				</td>
 			</tr>
-			<tr>
-				<td height="35" colspan="4">
-					<center>
-						<input type="button" value="创建" onclick="addFileBatch()"/>
-						<input type="button" value="取消"  /> 
-					</center>
-				</td>
-			</tr>
 		</table>
 	</form>
 </div>
 
 <div id="adddlg-buttons">
 	<a href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="savebatch()" iconcls="icon-save">保存</a> <a
+		onclick="createWorkOrder()" iconcls="icon-save">保存</a> <a
 		href="javascript:void(0)" class="easyui-linkbutton"
 		onclick="javascript:$('#dlgDetails').dialog('close')"
 		iconcls="icon-cancel">取消</a>

@@ -1,6 +1,7 @@
 package org.buzheng.demo.esm.web.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chinatelecom.dao.WorkOrderMapper;
 import com.chinatelecom.dao.WorkOrderRefUserMapper;
+import com.chinatelecom.model.Json;
 import com.chinatelecom.model.WorkOrder;
 import com.chinatelecom.model.WorkOrderExample;
 import com.chinatelecom.model.WorkOrderRefUser;
@@ -51,6 +53,30 @@ public class WorkOrderController {
 	@ResponseBody
 	public List<WorkOrderRefUser> listOrderDetails(Long workOrderId) {
 		return workOrderRefUserMapper.listOrderDetailsInnerJoinUser(workOrderId);
+	}
+
+	@RequestMapping("createWorkOrder")
+	@ResponseBody
+	public Json createWorkOrder(HttpServletRequest request, HttpSession session) {
+		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
+		WorkOrder workOrder = new WorkOrder();
+		workOrder.setTitle(request.getParameter("title"));
+		workOrder.setGroupid(Long.parseLong(request.getParameter("groupid")));
+		workOrder.setAffectScope(request.getParameter("affectScope"));
+		workOrder.setContacts(request.getParameter("contacts"));
+		workOrder.setTel(request.getParameter("tel"));
+		workOrderMapper.insert(workOrder);
+		WorkOrderRefUser workOrderRefUser = new WorkOrderRefUser();
+		workOrderRefUser.setReachTime(new Date());
+		workOrderRefUser.setWorkOrderId(workOrder.getId());
+		workOrderRefUser.setState(1);
+		workOrderRefUser.setUserId(user.getUserId());
+		workOrderRefUserMapper.insert(workOrderRefUser);
+		Json j = new Json();
+		j.setObj(workOrder);
+		j.setSuccess(true);
+		j.setMsg("建单成功");
+		return j;
 	}
 
 }

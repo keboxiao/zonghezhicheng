@@ -19,22 +19,14 @@
 				<input type="hidden" id="id" name="id" />
 				</td>
 			</tr>
-			<tr>
-				<td height="35" colspan="4">
-					<center>
-						<input type="button" value="创建" onclick="addFileBatch()"/>
-						<input type="button" value="取消"  /> 
-					</center>
-				</td>
-			</tr>
 		</table>
 	</form>
 </div>
 
 <div id="adddlg-buttons">
 	<a href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="savebatch()" iconcls="icon-save">保存</a> <a
+		onclick="addFileBatch()" iconcls="icon-save">保存</a> <a
 		href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="javascript:$('#dlgDetails').dialog('close')"
+		onclick="javascript:$('#dlgAdd').dialog('close')"
 		iconcls="icon-cancel">取消</a>
 </div>

@@ -1,12 +1,14 @@
 package org.buzheng.demo.esm.web.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.buzheng.demo.esm.App;
 import org.buzheng.demo.esm.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +35,27 @@ public class WorkOrderController {
 	@RequestMapping("listAllWorkOrder")
 	@ResponseBody
 	public List<WorkOrder> listAllWorkOrder(HttpServletRequest request) throws IllegalStateException, IOException {
-		// String id = request.getParameter("id");
+		String title = request.getParameter("title");
+		String begintime = request.getParameter("begintime");
+		String endtime = request.getParameter("endtime");
 		WorkOrderExample example = new WorkOrderExample();
 		WorkOrderExample.Criteria criteria = example.createCriteria();
+		if (StringUtils.isNotBlank(title)) {
+			criteria.andTitleLike(title);
+		}
+		try {
+			if (StringUtils.isNotBlank(begintime)) {
+				begintime += " 00:00:00";
+				criteria.andHappenTimeGreaterThanOrEqualTo(DateFormat.getDateTimeInstance().parse(begintime));
+			}
+			if (StringUtils.isNotBlank(endtime)) {
+				endtime += " 00:00:00";
+				criteria.andHappenTimeLessThanOrEqualTo(DateFormat.getDateTimeInstance().parse(endtime));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 		// criteria.andBatchNoEqualTo(Long.parseLong(id));
 		return workOrderMapper.selectByExample(example);
 	}
@@ -65,6 +85,7 @@ public class WorkOrderController {
 		workOrder.setAffectScope(request.getParameter("affectScope"));
 		workOrder.setContacts(request.getParameter("contacts"));
 		workOrder.setTel(request.getParameter("tel"));
+		workOrder.setHappenTime(new Date());
 		workOrderMapper.insert(workOrder);
 		WorkOrderRefUser workOrderRefUser = new WorkOrderRefUser();
 		workOrderRefUser.setReachTime(new Date());

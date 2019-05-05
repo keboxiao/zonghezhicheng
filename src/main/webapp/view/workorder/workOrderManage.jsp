@@ -353,6 +353,8 @@ function deleteById(){
 			<form id="admin_yhgl_searchForm">
 				主题：
 				<input id="title" class="easyui-textbox" name="title" />
+				起始日期：<input id="begintime" class="easyui-datebox" name="begintime" />
+				终止日期：<input id="endtime" class="easyui-datebox" name="endtime" />
 				<a href="javascript:void(0);" id="edit"
 					class="easyui-linkbutton" iconCls="icon-edit" onclick="details()">详情</a>
 				<a href="javascript:void(0);" id="edit"
@@ -360,7 +362,7 @@ function deleteById(){
 				<a href="javascript:void(0);" class="easyui-linkbutton"
 					data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
-					data-options="iconCls:'icon-redo'" onclick="clearFun();">清空</a>
+					data-options="iconCls:'icon-redo'" onclick="clearFun();">重置</a>
 			</form>
 		</div>
 		<div>

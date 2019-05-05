@@ -75,6 +75,6 @@
 	<a href="javascript:void(0)" class="easyui-linkbutton"
 		onclick="createWorkOrder()" iconcls="icon-save">保存</a> <a
 		href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="javascript:$('#dlgDetails').dialog('close')"
+		onclick="javascript:$('#dlgAdd').dialog('close')"
 		iconcls="icon-cancel">取消</a>
 </div>

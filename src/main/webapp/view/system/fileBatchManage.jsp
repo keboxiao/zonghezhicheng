@@ -365,7 +365,7 @@ function deleteById(){
 				<a href="javascript:void(0);" class="easyui-linkbutton"
 					data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
-					data-options="iconCls:'icon-redo'" onclick="clearFun();">清空</a>
+					data-options="iconCls:'icon-redo'" onclick="clearFun();">重置</a>
 			</form>
 		</div>
 		<div>

@@ -81,6 +81,7 @@ function processbatch() {
 	//var rows = $('#grid').datagrid('getSelections');
 	var ids = [];
 	$.messager.confirm('确认', '您确定要处理吗？', function(r) {
+		if (r) {
 		for ( var i = 0; i < objRows.length; i++) {
 			ids.push(objRows[i].userId);
 		}
@@ -103,6 +104,7 @@ function processbatch() {
 				$("#grid").datagrid("load");
 			}
 		});
+		}
 	});
 }
 
@@ -206,7 +208,7 @@ function processWorkOrderByRow(row) {
 			columns : [ [ {
 				field : 'sysUser',
 				title : '处理人',
-				width : 100,
+				width : 90,
 				align : 'center',
 				formatter: function (value) { 
 					return value.name;
@@ -214,15 +216,20 @@ function processWorkOrderByRow(row) {
 			}, {
 				field : 'a',
 				title : '处理人电话',
-				width : 160,
+				width : 110,
 				align : 'center',
 				formatter: function (value,row,index) { 
 					return row.sysUser.phone;
 				}
 			}, {
-				field : 'reachTime',
+				field : 'formatReachTime',
 				title : '到达时间',
-				width : 120,
+				width : 150,
+				align : 'center'
+			}, {
+				field : 'formatFinishTime',
+				title : '完成时间',
+				width : 150,
 				align : 'center'
 			}, {
 				field:'remark',
@@ -233,7 +240,7 @@ function processWorkOrderByRow(row) {
 				field:'state',
 				title:'状态',
 				align:'center',
-				width : 80
+				width : 70
 			} ] ]
 		});
 		$("#batch_no").attr('value',row.id);
@@ -375,7 +382,7 @@ function processWorkOrder() {
 			columns : [ [ {
 				field : 'sysUser',
 				title : '处理人',
-				width : 100,
+				width : 90,
 				align : 'center',
 				formatter: function (value) { 
 					return value.name;
@@ -383,15 +390,20 @@ function processWorkOrder() {
 			}, {
 				field : 'a',
 				title : '处理人电话',
-				width : 160,
+				width : 110,
 				align : 'center',
 				formatter: function (value,row,index) { 
 					return row.sysUser.phone;
 				}
 			}, {
-				field : 'reachTime',
+				field : 'formatReachTime',
 				title : '到达时间',
-				width : 120,
+				width : 150,
+				align : 'center'
+			}, {
+				field : 'formatFinishTime',
+				title : '完成时间',
+				width : 150,
 				align : 'center'
 			}, {
 				field:'remark',
@@ -402,8 +414,89 @@ function processWorkOrder() {
 				field:'state',
 				title:'状态',
 				align:'center',
-				width : 80
+				width : 70
 			} ] ]
+		});
+		$('#nextHandler').datagrid({
+			url : '',
+			loadMsg : '数据加载中,请稍候...',
+			rownumbers : true,
+			singleSelect : false,//单选还是多选
+			striped : true,
+			fit : true,//自适应大小
+			nowrap : false,//数据长度超出列宽时将会自动截取。
+			columns : [ [
+				{
+					title : '对象ID',
+					field : 'id',
+					checkbox:true
+				},{
+					title : '姓名',
+					field : 'name',
+					width : 100
+				},{
+					title : '部门',
+					field : 'groupName',
+					width : 200
+				},{
+					title : '联系电话',
+					field : 'phone',
+					width : 300
+				}
+				] ],
+				toolbar:[ {
+					id : 'objectBtnAdd',
+					text : '人员选择',
+					iconCls : 'icon-add',
+					handler : function() {
+						$("#dlgrenyuan").dialog("open").dialog('setTitle', '选择');
+							//数据表格
+						$('#gridrenyuan').datagrid({
+							url : '<%=request.getContextPath() %>/app/sys/user/findByName',
+							loadMsg : '数据加载中,请稍候...',
+							rownumbers : true,
+							pagination : true, //分页控件
+							pageList : [ 10, 15, 20, 30, 40, 50, 100 ],
+							pageSize : 20,
+							singleSelect : false,//单选还是多选
+							striped : true,
+							fit : true,//自适应大小
+							fitColumns:true,
+							nowrap : false,//数据长度超出列宽时将会自动截取。
+							columns : [ [
+								{
+									title : '对象ID',
+									field : 'id',
+									checkbox:true
+								},{
+									title : '姓名',
+									field : 'name'
+								},{
+									title : '部门',
+									field : 'groupName'
+								},{
+									title : '联系电话',
+									field : 'phone'
+								}  ] ]
+						});
+					}
+				},{
+					id : 'objectBtnDel',
+					text : '删除',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						var rows = $('#nextHandler').datagrid('getSelections');
+						if(rows == null || rows.length<1) {
+							$.messager.alert("提示", "请选择要删除的数据");
+							return false;
+						}
+						for(var i=0;i<rows.length;i++) {
+							var row = rows[i];
+							var rowIndex = $('#nextHandler').datagrid('getRowIndex',row);
+							delDataGridRow("nextHandler",rowIndex);
+						}
+					}
+				} ]
 		});
 		$("#batch_no").attr('value',row.id);
 		$('#filegrid').datagrid( {
@@ -438,87 +531,7 @@ function processWorkOrder() {
 			} ] ]
 		});
 	}
-	$('#nextHandler').datagrid({
-		url : '',
-		loadMsg : '数据加载中,请稍候...',
-		rownumbers : true,
-		singleSelect : false,//单选还是多选
-		striped : true,
-		fit : true,//自适应大小
-		nowrap : false,//数据长度超出列宽时将会自动截取。
-		columns : [ [
-			{
-				title : '对象ID',
-				field : 'id',
-				checkbox:true
-			},{
-				title : '姓名',
-				field : 'name',
-				width : 100
-			},{
-				title : '部门',
-				field : 'groupName',
-				width : 200
-			},{
-				title : '联系电话',
-				field : 'phone',
-				width : 300
-			}
-			] ],
-			toolbar:[ {
-				id : 'objectBtnAdd',
-				text : '人员选择',
-				iconCls : 'icon-add',
-				handler : function() {
-					$("#dlgrenyuan").dialog("open").dialog('setTitle', '选择');
-						//数据表格
-					$('#gridrenyuan').datagrid({
-						url : '<%=request.getContextPath() %>/app/sys/user/findByName',
-						loadMsg : '数据加载中,请稍候...',
-						rownumbers : true,
-						pagination : true, //分页控件
-						pageList : [ 10, 15, 20, 30, 40, 50, 100 ],
-						pageSize : 20,
-						singleSelect : false,//单选还是多选
-						striped : true,
-						fit : true,//自适应大小
-						fitColumns:true,
-						nowrap : false,//数据长度超出列宽时将会自动截取。
-						columns : [ [
-							{
-								title : '对象ID',
-								field : 'id',
-								checkbox:true
-							},{
-								title : '姓名',
-								field : 'name'
-							},{
-								title : '部门',
-								field : 'groupName'
-							},{
-								title : '联系电话',
-								field : 'phone'
-							}  ] ]
-					});
-				}
-			},{
-				id : 'objectBtnDel',
-				text : '删除',
-				iconCls : 'icon-cancel',
-				handler : function() {
-					var rows = $('#nextHandler').datagrid('getSelections');
-					if(rows == null || rows.length<1) {
-						$.messager.alert("提示", "请选择要删除的数据");
-						return false;
-					}
-					for(var i=0;i<rows.length;i++) {
-						var row = rows[i];
-						var rowIndex = $('#nextHandler').datagrid('getRowIndex',row);
-						delDataGridRow("nextHandler",rowIndex);
-					}
-				}
-			} ]
-	});
+
 }
 
 function loadFile(){
@@ -574,7 +587,7 @@ function deleteById(){
 			if (r) {
 				$.ajax({
 					type: 'POST',
-					url : '../../app/deleteById',
+					url : '../../app/deleteWorkOrder',
 					data : {
 						id : row.id
 					},

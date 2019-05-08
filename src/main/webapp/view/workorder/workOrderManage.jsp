@@ -201,7 +201,7 @@ function details() {
 			columns : [ [ {
 				field : 'sysUser',
 				title : '处理人',
-				width : 100,
+				width : 90,
 				align : 'center',
 				formatter: function (value) { 
 					return value.name;
@@ -209,15 +209,20 @@ function details() {
 			}, {
 				field : 'a',
 				title : '处理人电话',
-				width : 160,
+				width : 110,
 				align : 'center',
 				formatter: function (value,row,index) { 
 					return row.sysUser.phone;
 				}
 			}, {
-				field : 'reachTime',
+				field : 'formatReachTime',
 				title : '到达时间',
-				width : 120,
+				width : 150,
+				align : 'center'
+			}, {
+				field : 'formatFinishTime',
+				title : '完成时间',
+				width : 150,
 				align : 'center'
 			}, {
 				field:'remark',
@@ -228,7 +233,7 @@ function details() {
 				field:'state',
 				title:'状态',
 				align:'center',
-				width : 80
+				width : 70
 			} ] ]
 		});
 		$("#batch_no").attr('value',row.id);
@@ -319,7 +324,7 @@ function deleteById(){
 			if (r) {
 				$.ajax({
 					type: 'POST',
-					url : '../../app/deleteById',
+					url : '../../app/deleteWorkOrder',
 					data : {
 						id : row.id
 					},

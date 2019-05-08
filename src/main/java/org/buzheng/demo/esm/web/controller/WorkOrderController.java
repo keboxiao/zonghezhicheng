@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.buzheng.demo.esm.App;
 import org.buzheng.demo.esm.domain.SysUser;
+import org.buzheng.demo.esm.service.WorkOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,9 @@ public class WorkOrderController {
 
 	@Autowired
 	private WorkOrderRefUserMapper workOrderRefUserMapper;
+
+	@Autowired
+	private WorkOrderService workOrderService;
 
 	@RequestMapping("listAllWorkOrder")
 	@ResponseBody
@@ -81,7 +85,7 @@ public class WorkOrderController {
 		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
 		WorkOrder workOrder = new WorkOrder();
 		workOrder.setTitle(request.getParameter("title"));
-		workOrder.setGroupid(Long.parseLong(request.getParameter("groupid")));
+		workOrder.setGroupid(user.getGroupId());
 		workOrder.setAffectScope(request.getParameter("affectScope"));
 		workOrder.setContacts(request.getParameter("contacts"));
 		workOrder.setTel(request.getParameter("tel"));
@@ -97,6 +101,17 @@ public class WorkOrderController {
 		j.setObj(workOrder);
 		j.setSuccess(true);
 		j.setMsg("建单成功");
+		return j;
+	}
+
+	@RequestMapping("deleteWorkOrder")
+	@ResponseBody
+	public Json deleteWorkOrder(HttpServletRequest request, HttpSession session) {
+		String id = request.getParameter("id");
+		workOrderService.deleteWorkOrder(Long.parseLong(id));
+		Json j = new Json();
+		j.setSuccess(true);
+		j.setMsg("删除成功");
 		return j;
 	}
 

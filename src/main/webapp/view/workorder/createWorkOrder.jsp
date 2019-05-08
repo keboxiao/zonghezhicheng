@@ -14,7 +14,6 @@
 				</td>
 				<td class="oddTd" width="20%">拟稿部门：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="groupid" name="groupid" />
 				</td>
 			</tr>
 			<tr height="35px">
@@ -44,7 +43,6 @@
 				</td>
 				<td class="oddTd" width="20%">事件发生时间：</td>
 				<td align="center">
-					<input id="begintime" style="width:98%;height:100%" class="easyui-datebox" name="happenTime" /> 
 				</td>
 			</tr>
 			<tr height="35px">

@@ -5,5 +5,7 @@ import com.chinatelecom.model.WorkOrder;
 public interface WorkOrderService {
 
 	public void createWorkOrder(WorkOrder workOrder, Long userId);
+	
+	public boolean deleteWorkOrder(Long workOrderId);
 
 }

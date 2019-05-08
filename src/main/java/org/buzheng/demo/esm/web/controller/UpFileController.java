@@ -61,7 +61,7 @@ public class UpFileController {
 					// String username = request.getParameter("username");
 					String batch_no = request.getParameter("batch_no");
 					String file_class = request.getParameter("file_class");
-					String fileName = file_class + "_" + batch_no + "_" + file.getOriginalFilename();
+					String fileName = file_class + "_" + batch_no + "_" + user.getUserId() + "_" + file.getOriginalFilename();
 					String path = "d:/upload_file/" + fileName;
 					file.transferTo(new File(path));
 					UpFile upFile = new UpFile();

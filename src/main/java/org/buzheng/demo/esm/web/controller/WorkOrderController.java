@@ -3,7 +3,9 @@ package org.buzheng.demo.esm.web.controller;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,7 +23,6 @@ import com.chinatelecom.dao.WorkOrderMapper;
 import com.chinatelecom.dao.WorkOrderRefUserMapper;
 import com.chinatelecom.model.Json;
 import com.chinatelecom.model.WorkOrder;
-import com.chinatelecom.model.WorkOrderExample;
 import com.chinatelecom.model.WorkOrderRefUser;
 
 @Controller
@@ -38,30 +39,32 @@ public class WorkOrderController {
 
 	@RequestMapping("listAllWorkOrder")
 	@ResponseBody
-	public List<WorkOrder> listAllWorkOrder(HttpServletRequest request) throws IllegalStateException, IOException {
+	public List<WorkOrder> listAllWorkOrder(HttpServletRequest request, HttpSession session)
+			throws IllegalStateException, IOException {
+		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
 		String title = request.getParameter("title");
+		String state = request.getParameter("state");
 		String begintime = request.getParameter("begintime");
 		String endtime = request.getParameter("endtime");
-		WorkOrderExample example = new WorkOrderExample();
-		WorkOrderExample.Criteria criteria = example.createCriteria();
+		Map<String, Object> params = new HashMap<>();
 		if (StringUtils.isNotBlank(title)) {
-			criteria.andTitleLike(title);
+			params.put("title", title);
 		}
-		try {
-			if (StringUtils.isNotBlank(begintime)) {
-				begintime += " 00:00:00";
-				criteria.andHappenTimeGreaterThanOrEqualTo(DateFormat.getDateTimeInstance().parse(begintime));
-			}
-			if (StringUtils.isNotBlank(endtime)) {
-				endtime += " 00:00:00";
-				criteria.andHappenTimeLessThanOrEqualTo(DateFormat.getDateTimeInstance().parse(endtime));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		if (user.getGroupId() != null) {
+			params.put("groupId", user.getGroupId());
 		}
-		// criteria.andBatchNoEqualTo(Long.parseLong(id));
-		return workOrderMapper.selectByExample(example);
+		if (StringUtils.isNotBlank(state)) {
+			params.put("state", state);
+		}
+		if (StringUtils.isNotBlank(begintime)) {
+			begintime += " 00:00:00";
+			params.put("begintime", begintime);
+		}
+		if (StringUtils.isNotBlank(endtime)) {
+			endtime += " 00:00:00";
+			params.put("endtime", endtime);
+		}
+		return workOrderMapper.getWorkOrderByCondition(params);
 	}
 
 	@RequestMapping("listMyWorkOrderToBeProcessed")
@@ -87,9 +90,18 @@ public class WorkOrderController {
 		workOrder.setTitle(request.getParameter("title"));
 		workOrder.setGroupid(user.getGroupId());
 		workOrder.setAffectScope(request.getParameter("affectScope"));
-		workOrder.setContacts(request.getParameter("contacts"));
-		workOrder.setTel(request.getParameter("tel"));
+		workOrder.setContacts(user.getName());
+		workOrder.setTel(user.getPhone());
 		workOrder.setHappenTime(new Date());
+		workOrder.setServiceType(request.getParameter("serviceType"));
+		workOrder.setFirstSystem(request.getParameter("firstSystem"));
+		workOrder.setAppearance(request.getParameter("appearance"));
+		workOrder.setEvent(request.getParameter("event"));
+		workOrder.setInfluence(request.getParameter("influence"));
+		workOrder.setPriority(request.getParameter("priority"));
+		workOrder.setEvent(request.getParameter("event"));
+		workOrder.setShoulirenyuan(request.getParameter("shoulirenyuan"));
+		workOrder.setShoulirenyuandianhua(request.getParameter("shoulirenyuandianhua"));
 		workOrderMapper.insert(workOrder);
 		WorkOrderRefUser workOrderRefUser = new WorkOrderRefUser();
 		workOrderRefUser.setReachTime(new Date());

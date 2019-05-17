@@ -3,30 +3,41 @@ package com.chinatelecom.dao;
 import com.chinatelecom.model.WorkOrder;
 import com.chinatelecom.model.WorkOrderExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface WorkOrderMapper {
-    long countByExample(WorkOrderExample example);
+	long countByExample(WorkOrderExample example);
 
-    int deleteByExample(WorkOrderExample example);
+	int deleteByExample(WorkOrderExample example);
 
-    int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(Long id);
 
-    int insert(WorkOrder record);
+	int insert(WorkOrder record);
 
-    int insertSelective(WorkOrder record);
+	int insertSelective(WorkOrder record);
 
-    List<WorkOrder> selectByExample(WorkOrderExample example);
+	List<WorkOrder> selectByExampleWithBLOBs(WorkOrderExample example);
 
-    WorkOrder selectByPrimaryKey(Long id);
+	List<WorkOrder> selectByExample(WorkOrderExample example);
 
-    int updateByExampleSelective(@Param("record") WorkOrder record, @Param("example") WorkOrderExample example);
+	WorkOrder selectByPrimaryKey(Long id);
 
-    int updateByExample(@Param("record") WorkOrder record, @Param("example") WorkOrderExample example);
+	int updateByExampleSelective(@Param("record") WorkOrder record, @Param("example") WorkOrderExample example);
 
-    int updateByPrimaryKeySelective(WorkOrder record);
+	int updateByExampleWithBLOBs(@Param("record") WorkOrder record, @Param("example") WorkOrderExample example);
 
-    int updateByPrimaryKey(WorkOrder record);
-    
-    List<WorkOrder> getMyWorkOrderToBeProcessed(Long userId);
+	int updateByExample(@Param("record") WorkOrder record, @Param("example") WorkOrderExample example);
+
+	int updateByPrimaryKeySelective(WorkOrder record);
+
+	int updateByPrimaryKeyWithBLOBs(WorkOrder record);
+
+	int updateByPrimaryKey(WorkOrder record);
+
+	List<WorkOrder> getMyWorkOrderToBeProcessed(Long userId);
+
+	List<WorkOrder> getWorkOrderByCondition(@Param("params") Map<String, Object> params);
+
 }

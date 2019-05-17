@@ -14,6 +14,11 @@
     <result column="appearance" jdbcType="VARCHAR" property="appearance" />
     <result column="priority" jdbcType="VARCHAR" property="priority" />
     <result column="influence" jdbcType="VARCHAR" property="influence" />
+    <result column="shoulirenyuan" jdbcType="VARCHAR" property="shoulirenyuan" />
+    <result column="shoulirenyuandianhua" jdbcType="VARCHAR" property="shoulirenyuandianhua" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.chinatelecom.model.WorkOrder">
+    <result column="event" jdbcType="LONGVARCHAR" property="event" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,8 +80,27 @@
   </sql>
   <sql id="Base_Column_List">
     id, title, groupid, affect_scope, service_type, contacts, tel, first_system, happen_time, 
-    appearance, priority, influence
+    appearance, priority, influence, shoulirenyuan, shoulirenyuandianhua
   </sql>
+  <sql id="Blob_Column_List">
+    event
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.chinatelecom.model.WorkOrderExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from work_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.chinatelecom.model.WorkOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -91,17 +115,47 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from work_order
     where id = #{id,jdbcType=BIGINT}
   </select>
-   <select id="getMyWorkOrderToBeProcessed" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="getMyWorkOrderToBeProcessed" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select w.* 
     from work_order w inner join work_order_ref_user r 
     on w.id=r.work_order_id 
     where r.state=1 and r.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="getWorkOrderByCondition" parameterType="map" resultMap="BaseResultMap">
+    SELECT 
+    w.* FROM
+    work_order w
+    WHERE EXISTS( SELECT 
+            1
+        FROM
+            work_order_ref_user r
+                INNER JOIN
+            sys_user u ON r.user_id = u.user_id
+        where r.work_order_id=w.id
+            <if test="params.state != null">
+            and r.state = #{params.state} 
+            </if>
+            <if test="params.groupId != null">
+            and u.group_id = #{params.groupId}
+            </if>
+            )
+	        <if test="params.title != null">
+	            and w.title = #{params.title}
+	        </if>
+	        <if test="params.begintime != null">
+	            <![CDATA[ and w.happen_time >= #{params.begintime} ]]>
+	        </if>
+	        <if test="params.endtime != null">
+	           <![CDATA[ and w.happen_time <= #{params.endtime}  ]]>
+	        </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from work_order
@@ -117,12 +171,14 @@
     insert into work_order (id, title, groupid, 
       affect_scope, service_type, contacts, 
       tel, first_system, happen_time, 
-      appearance, priority, influence
+      appearance, priority, influence, 
+      shoulirenyuan, shoulirenyuandianhua, event
       )
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{groupid,jdbcType=BIGINT}, 
       #{affectScope,jdbcType=VARCHAR}, #{serviceType,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{firstSystem,jdbcType=VARCHAR}, #{happenTime,jdbcType=TIMESTAMP}, 
-      #{appearance,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{influence,jdbcType=VARCHAR}
+      #{appearance,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{influence,jdbcType=VARCHAR}, 
+      #{shoulirenyuan,jdbcType=VARCHAR}, #{shoulirenyuandianhua,jdbcType=VARCHAR}, #{event,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.chinatelecom.model.WorkOrder">
@@ -164,6 +220,15 @@
       <if test="influence != null">
         influence,
       </if>
+      <if test="shoulirenyuan != null">
+        shoulirenyuan,
+      </if>
+      <if test="shoulirenyuandianhua != null">
+        shoulirenyuandianhua,
+      </if>
+      <if test="event != null">
+        event,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -201,6 +266,15 @@
       </if>
       <if test="influence != null">
         #{influence,jdbcType=VARCHAR},
+      </if>
+      <if test="shoulirenyuan != null">
+        #{shoulirenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="shoulirenyuandianhua != null">
+        #{shoulirenyuandianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null">
+        #{event,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -249,7 +323,37 @@
       <if test="record.influence != null">
         influence = #{record.influence,jdbcType=VARCHAR},
       </if>
+      <if test="record.shoulirenyuan != null">
+        shoulirenyuan = #{record.shoulirenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shoulirenyuandianhua != null">
+        shoulirenyuandianhua = #{record.shoulirenyuandianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="record.event != null">
+        event = #{record.event,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update work_order
+    set id = #{record.id,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      groupid = #{record.groupid,jdbcType=BIGINT},
+      affect_scope = #{record.affectScope,jdbcType=VARCHAR},
+      service_type = #{record.serviceType,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      first_system = #{record.firstSystem,jdbcType=VARCHAR},
+      happen_time = #{record.happenTime,jdbcType=TIMESTAMP},
+      appearance = #{record.appearance,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=VARCHAR},
+      influence = #{record.influence,jdbcType=VARCHAR},
+      shoulirenyuan = #{record.shoulirenyuan,jdbcType=VARCHAR},
+      shoulirenyuandianhua = #{record.shoulirenyuandianhua,jdbcType=VARCHAR},
+      event = #{record.event,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -267,7 +371,9 @@
       happen_time = #{record.happenTime,jdbcType=TIMESTAMP},
       appearance = #{record.appearance,jdbcType=VARCHAR},
       priority = #{record.priority,jdbcType=VARCHAR},
-      influence = #{record.influence,jdbcType=VARCHAR}
+      influence = #{record.influence,jdbcType=VARCHAR},
+      shoulirenyuan = #{record.shoulirenyuan,jdbcType=VARCHAR},
+      shoulirenyuandianhua = #{record.shoulirenyuandianhua,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -308,7 +414,34 @@
       <if test="influence != null">
         influence = #{influence,jdbcType=VARCHAR},
       </if>
+      <if test="shoulirenyuan != null">
+        shoulirenyuan = #{shoulirenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="shoulirenyuandianhua != null">
+        shoulirenyuandianhua = #{shoulirenyuandianhua,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null">
+        event = #{event,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.chinatelecom.model.WorkOrder">
+    update work_order
+    set title = #{title,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=BIGINT},
+      affect_scope = #{affectScope,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      first_system = #{firstSystem,jdbcType=VARCHAR},
+      happen_time = #{happenTime,jdbcType=TIMESTAMP},
+      appearance = #{appearance,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=VARCHAR},
+      influence = #{influence,jdbcType=VARCHAR},
+      shoulirenyuan = #{shoulirenyuan,jdbcType=VARCHAR},
+      shoulirenyuandianhua = #{shoulirenyuandianhua,jdbcType=VARCHAR},
+      event = #{event,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.chinatelecom.model.WorkOrder">
@@ -323,7 +456,9 @@
       happen_time = #{happenTime,jdbcType=TIMESTAMP},
       appearance = #{appearance,jdbcType=VARCHAR},
       priority = #{priority,jdbcType=VARCHAR},
-      influence = #{influence,jdbcType=VARCHAR}
+      influence = #{influence,jdbcType=VARCHAR},
+      shoulirenyuan = #{shoulirenyuan,jdbcType=VARCHAR},
+      shoulirenyuandianhua = #{shoulirenyuandianhua,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -19,21 +19,47 @@
 			<tr height="35px">
 				<td width="25%" class="oddTd">影响范围 ：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="affectScope" name="affectScope" />
+				<select id="affectScope" name="affectScope">
+					<option value="all">
+						请选择
+					</option>
+					<option value="个别用户">
+						个别用户
+					</option>
+					<option value="一类型用户">
+						一类型用户
+					</option>
+				</select>
 				</td>
 				<td class="oddTd" width="20%">业务类型：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="serviceType" name="serviceType" />
+				<select id="serviceType" name="serviceType">
+					<option value="all" selected>
+						请选择
+					</option>
+					<option value="宽带">
+						宽带
+					</option>
+					<option value="ITV">
+						ITV
+					</option>
+					<option value="固话">
+						固话
+					</option>
+					<option value="手机">
+						手机
+					</option>
+				</select>
 				</td>
 			</tr>
 			<tr height="35px">
-				<td width="25%" class="oddTd">联系人 ：</td>
+				<td width="25%" class="oddTd">受理人员 ：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="contacts" name="contacts" />
+					<input style="width:98%;height:100%" id="shoulirenyuan" name="shoulirenyuan" />
 				</td>
-				<td class="oddTd" width="20%">联系电话：</td>
+				<td class="oddTd" width="20%">受理人员联系电话：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="tel" name="tel" />
+					<input style="width:98%;height:100%" id="shoulirenyuandianhua" name="shoulirenyuandianhua" />
 				</td>
 			</tr>
 			<tr height="35px">
@@ -52,17 +78,58 @@
 				</td>
 				<td class="oddTd" width="20%">优先级：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="priority" name="priority" />
+				<select id="priority" name="priority">
+					<option value="all" selected>
+						请选择
+					</option>
+					<option value="低">
+						低
+					</option>
+					<option value="中">
+						中
+					</option>
+					<option value="高">
+						高
+					</option>
+				</select>
 				</td>
 			</tr>
 			<tr height="35px">
 				<td width="25%" class="oddTd">事件影响度 ：</td>
 				<td align="center">
-					<input style="width:98%;height:100%" id="influence" name="influence" />
+					<select id="influence" name="influence">
+					<option value="all">
+						请选择
+					</option>
+					<option value="一般">
+						一般
+					</option>
+					<option value="中等">
+						中等
+					</option>
+					<option value="严重">
+						严重
+					</option>
+				</select>
 				</td>
 				<td class="oddTd" width="20%"></td>
 				<td align="center">
 					
+				</td>
+			</tr>
+			<tr height="35px">
+				<td width="25%" class="oddTd">事件描述 ：</td>
+				<td align="center" colspan="3">
+				<textarea id="event" name="event" style="width:100%;height:180px;overflow:auto" >【订单编号】
+【接入号/业务号码】
+【办理业务】
+【操作工号】
+【出错环节】
+【错误提示】
+【申告现象】
+【可能原因】
+【处理要求】
+【影响范围】</textarea>
 				</td>
 			</tr>
 		</table>

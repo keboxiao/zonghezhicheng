@@ -27,6 +27,12 @@ public class WorkOrder {
 
     private String influence;
 
+    private String shoulirenyuan;
+
+    private String shoulirenyuandianhua;
+
+    private String event;
+
     public Long getId() {
         return id;
     }
@@ -121,5 +127,29 @@ public class WorkOrder {
 
     public void setInfluence(String influence) {
         this.influence = influence == null ? null : influence.trim();
+    }
+
+    public String getShoulirenyuan() {
+        return shoulirenyuan;
+    }
+
+    public void setShoulirenyuan(String shoulirenyuan) {
+        this.shoulirenyuan = shoulirenyuan == null ? null : shoulirenyuan.trim();
+    }
+
+    public String getShoulirenyuandianhua() {
+        return shoulirenyuandianhua;
+    }
+
+    public void setShoulirenyuandianhua(String shoulirenyuandianhua) {
+        this.shoulirenyuandianhua = shoulirenyuandianhua == null ? null : shoulirenyuandianhua.trim();
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event == null ? null : event.trim();
     }
 }

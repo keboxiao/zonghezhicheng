@@ -914,6 +914,146 @@ public class WorkOrderExample {
             addCriterion("influence not between", value1, value2, "influence");
             return (Criteria) this;
         }
+
+        public Criteria andShoulirenyuanIsNull() {
+            addCriterion("shoulirenyuan is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanIsNotNull() {
+            addCriterion("shoulirenyuan is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanEqualTo(String value) {
+            addCriterion("shoulirenyuan =", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanNotEqualTo(String value) {
+            addCriterion("shoulirenyuan <>", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanGreaterThan(String value) {
+            addCriterion("shoulirenyuan >", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanGreaterThanOrEqualTo(String value) {
+            addCriterion("shoulirenyuan >=", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanLessThan(String value) {
+            addCriterion("shoulirenyuan <", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanLessThanOrEqualTo(String value) {
+            addCriterion("shoulirenyuan <=", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanLike(String value) {
+            addCriterion("shoulirenyuan like", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanNotLike(String value) {
+            addCriterion("shoulirenyuan not like", value, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanIn(List<String> values) {
+            addCriterion("shoulirenyuan in", values, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanNotIn(List<String> values) {
+            addCriterion("shoulirenyuan not in", values, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanBetween(String value1, String value2) {
+            addCriterion("shoulirenyuan between", value1, value2, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuanNotBetween(String value1, String value2) {
+            addCriterion("shoulirenyuan not between", value1, value2, "shoulirenyuan");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaIsNull() {
+            addCriterion("shoulirenyuandianhua is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaIsNotNull() {
+            addCriterion("shoulirenyuandianhua is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaEqualTo(String value) {
+            addCriterion("shoulirenyuandianhua =", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaNotEqualTo(String value) {
+            addCriterion("shoulirenyuandianhua <>", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaGreaterThan(String value) {
+            addCriterion("shoulirenyuandianhua >", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaGreaterThanOrEqualTo(String value) {
+            addCriterion("shoulirenyuandianhua >=", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaLessThan(String value) {
+            addCriterion("shoulirenyuandianhua <", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaLessThanOrEqualTo(String value) {
+            addCriterion("shoulirenyuandianhua <=", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaLike(String value) {
+            addCriterion("shoulirenyuandianhua like", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaNotLike(String value) {
+            addCriterion("shoulirenyuandianhua not like", value, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaIn(List<String> values) {
+            addCriterion("shoulirenyuandianhua in", values, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaNotIn(List<String> values) {
+            addCriterion("shoulirenyuandianhua not in", values, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaBetween(String value1, String value2) {
+            addCriterion("shoulirenyuandianhua between", value1, value2, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
+
+        public Criteria andShoulirenyuandianhuaNotBetween(String value1, String value2) {
+            addCriterion("shoulirenyuandianhua not between", value1, value2, "shoulirenyuandianhua");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chinatelecom.dao.WorkOrderMapper;
 import com.chinatelecom.dao.WorkOrderRefUserMapper;
+import com.chinatelecom.model.WorkOrder;
 import com.chinatelecom.model.WorkOrderRefUser;
 import com.chinatelecom.model.WorkOrderRefUserExample;
 import com.parsedata.Send_SMS;
@@ -43,7 +44,9 @@ public class WorkOrderRefUserServiceImpl implements WorkOrderRefUserService {
 		workOrderRefUser.setState(3);
 		workOrderRefUserMapper.updateByPrimaryKey(workOrderRefUser);
 		String[] tuids = targetUserIds.split(",");
-		for (String targetUserId : tuids) {
+		String[] array_receivers = new String[tuids.length];
+		for (int i = 0; i < tuids.length; i++) {
+			String targetUserId = tuids[i];
 			WorkOrderRefUser newWorkOrderRef = new WorkOrderRefUser();
 			newWorkOrderRef.setReachTime(new Date());
 			newWorkOrderRef.setState(1);
@@ -51,8 +54,11 @@ public class WorkOrderRefUserServiceImpl implements WorkOrderRefUserService {
 			newWorkOrderRef.setWorkOrderId(workOrderRefUser.getWorkOrderId());
 			workOrderRefUserMapper.insert(newWorkOrderRef);
 			SysUser sysUser = sysUserDao.findByUserId(targetUserId.toString());
+			array_receivers[i] = sysUser.getPhone();
 			// String res = sendSms(sysUser.getPhone());
 		}
+		WorkOrder workOrder = workOrderMapper.selectByPrimaryKey(workOrderId);
+		sendSms(array_receivers, workOrder.getEvent());
 		return true;
 	}
 
@@ -72,15 +78,15 @@ public class WorkOrderRefUserServiceImpl implements WorkOrderRefUserService {
 		return true;
 	}
 
-	public String sendSms(String targetPhone) {
+	public String sendSms(String[] array_receivers, String SMS_content) {
 		Send_SMS sendSms = new Send_SMS();
 		String CII_account = "mmftth";
 		String CII_password = "Dxfs+2018";
-		String SMS_content = "号码：18999999999,账号：mmtest,故障：测试发短信，处理完向用户确认";
-		String[] array_receivers = new String[1];// {
-													// "13376688127","18929797513"
-													// };
-		array_receivers[0] = targetPhone;
+		// String SMS_content = "号码：18999999999,账号：mmtest,故障：测试发短信，处理完向用户确认";
+		// String[] array_receivers = new String[1];// {
+		// "13376688127","18929797513"
+		// };
+		// array_receivers[0] = targetPhone;
 		String SMS_password = "";
 		String SMS_sender = "";
 		String SMS_areacode = "";

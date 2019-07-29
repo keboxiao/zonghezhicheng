@@ -17,6 +17,9 @@
 <table id="user_list_dg"></table>
 
 <div id="user_list_dg_toolbar">
+姓名：<input id="name" class="easyui-textbox" name="name" />
+    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
+    <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="clearFun();">重置</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="openNewWin()">添加</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="openEditWin()">修改</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUser()">删除</a>
@@ -50,6 +53,10 @@
             </select>
         </div>
         
+         <div class="fitem">
+            <label>手机:</label>
+            <input type="text" name="phone" />
+        </div>
         <input type="hidden" name="userId" value="" />
         
         <p class="ftips">提示：默认密码为 123456</p>
@@ -84,6 +91,7 @@ $(function(){
 			{title:'用户名', field:'username'},
 			{title:'姓名', field:'name'},
 			{title:'机构', field:'groupName'},
+			{title:'手机', field:'phone'},
 			{title:'角色', field:'roleName', width:100}
 		]]
 	});
@@ -158,6 +166,14 @@ findAllRole();
 findAllGroup();
 
 var url = '';
+
+function searchFun() {
+	$('#user_list_dg').datagrid('load', serializeObject($('#user_searchForm')));
+}
+function clearFun() {
+	$('#name').textbox('setValue', '');
+	$('#user_list_dg').datagrid('load', {});
+}
 
 function openNewWin() {
 	$('#usernameInput').attr("readonly", false);

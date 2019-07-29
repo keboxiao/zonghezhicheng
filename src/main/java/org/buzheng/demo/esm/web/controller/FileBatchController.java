@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chinatelecom.dao.FileBatchMapper;
 import com.chinatelecom.dao.UpFileMapper;
+import com.chinatelecom.model.DataGrid;
 import com.chinatelecom.model.FileBatch;
 import com.chinatelecom.model.FileBatchExample;
 import com.chinatelecom.model.Json;
 import com.chinatelecom.model.UpFile;
 import com.chinatelecom.model.UpFileExample;
+import com.chinatelecom.model.WorkOrder;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @Controller
 public class FileBatchController {
@@ -35,13 +39,20 @@ public class FileBatchController {
 
 	@RequestMapping("/listFileBatch")
 	@ResponseBody
-	public List<FileBatch> listFileBatch(String title) {
+	public DataGrid listFileBatch(String title, Integer page, Integer rows) {
 		FileBatchExample example = new FileBatchExample();
 		FileBatchExample.Criteria criteria = example.createCriteria();
 		if (StringUtils.isNotBlank(title)) {
 			criteria.andTitleLike("%" + title + "%");
 		}
-		return fileBatchMapper.selectByExampleInnerjoinUser(example);
+		PageHelper.startPage(page, rows);
+		List list = fileBatchMapper.selectByExampleInnerjoinUser(example);
+		// 取分页信息
+		Page<FileBatch> pageInfo = (Page<FileBatch>) list;
+		DataGrid datagrid = new DataGrid();
+		datagrid.setRows(list);
+		datagrid.setTotal(pageInfo.getTotal());
+		return datagrid;
 	}
 
 	@RequestMapping("/addFileBatch")

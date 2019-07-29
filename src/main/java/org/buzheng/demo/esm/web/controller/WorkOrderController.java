@@ -21,9 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.chinatelecom.dao.WorkOrderMapper;
 import com.chinatelecom.dao.WorkOrderRefUserMapper;
+import com.chinatelecom.model.DataGrid;
 import com.chinatelecom.model.Json;
 import com.chinatelecom.model.WorkOrder;
 import com.chinatelecom.model.WorkOrderRefUser;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 @Controller
 public class WorkOrderController {
@@ -39,13 +42,15 @@ public class WorkOrderController {
 
 	@RequestMapping("listAllWorkOrder")
 	@ResponseBody
-	public List<WorkOrder> listAllWorkOrder(HttpServletRequest request, HttpSession session)
+	public DataGrid listAllWorkOrder(HttpServletRequest request, HttpSession session)
 			throws IllegalStateException, IOException {
 		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
 		String title = request.getParameter("title");
 		String state = request.getParameter("state");
 		String begintime = request.getParameter("begintime");
 		String endtime = request.getParameter("endtime");
+		Integer page = Integer.parseInt(request.getParameter("page"));
+		Integer rows = Integer.parseInt(request.getParameter("rows"));
 		Map<String, Object> params = new HashMap<>();
 		if (StringUtils.isNotBlank(title)) {
 			params.put("title", title);
@@ -64,7 +69,14 @@ public class WorkOrderController {
 			endtime += " 00:00:00";
 			params.put("endtime", endtime);
 		}
-		return workOrderMapper.getWorkOrderByCondition(params);
+		PageHelper.startPage(page, rows);
+		List list = workOrderMapper.getWorkOrderByCondition(params);
+		// 取分页信息
+		Page<WorkOrder> pageInfo = (Page<WorkOrder>) list;
+		DataGrid datagrid = new DataGrid();
+		datagrid.setRows(list);
+		datagrid.setTotal(pageInfo.getTotal());
+		return datagrid;
 	}
 
 	@RequestMapping("listMyWorkOrderToBeProcessed")

@@ -36,17 +36,19 @@ public class SysUserController extends BaseController {
 
 	@RequestMapping("/page")
 	@ResponseBody
-	public DataGrid page(int page, int rows, @ModelAttribute(App.USER_SESSION_KEY) SysUser user) {
+	public DataGrid page(int page, int rows, String name, @ModelAttribute(App.USER_SESSION_KEY) SysUser user) {
 		if (user == null) {
 			return null;
 		}
 		DataGrid datagrid = null;
+		Map<String, Object> params = new HashMap<String, Object>();
 		// 超级管理员才能查全部用户，其他只能查自己机构内部的用户
 		if (App.SUPER_ROLE_ID.equals(user.getRoleId())) {
+			params.put("name", name);
 			datagrid = this.sysUserService.findPage(page, rows);
 		} else {
-			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("groupId", user.getGroupId());
+			params.put("name", name);
 			datagrid = this.sysUserService.findPage(params, page, rows);
 		}
 		return datagrid;

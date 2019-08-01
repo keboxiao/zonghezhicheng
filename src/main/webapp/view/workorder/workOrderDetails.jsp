@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8"%>
+<%@ page contentType="text/html;charset=utf-8" import="java.lang.*"%>
 
 <div id="dlgDetails" class="easyui-dialog"
 	style="width: 900px; height: 600px; padding: 10px 20px;" closed="true"
@@ -124,6 +124,7 @@
 					</option>
 				</select>
 				</td>
+				<% if(flag) { %>
 				<td class="oddTd" width="20%">处理方式：</td>
 				<td align="center">
 				<select id="chulifangshi" name="chulifangshi">
@@ -138,13 +139,15 @@
 					</option>
 				</select>
 				</td>
+				<% } %>
 			</tr>
 			<tr height="35px">
 				<td width="25%" class="oddTd">事件描述 ：</td>
 				<td align="center" colspan="3">
-					<textarea id="event" name="event" style="width:100%;height:180px;overflow:auto" ></textarea>
+					<textarea id="event" name="event" style="width:99%;height:180px;overflow:auto" ></textarea>
 				</td>
 			</tr>
+			<% if(flag) { %>
 			<tr height="35px">
 				<td width="25%" align="left" class="oddTd" colspan="4">下一个处理人 ：</td>
 				
@@ -162,6 +165,7 @@
 					<input class="easyui-textbox" id="remark" name="remark" style="width:600px;height:80px" data-options="multiline:true">
 				</td>
 			</tr>
+			<% } %>
 			<tr>
 				<td height="35" colspan="4">
 				</td>
@@ -210,10 +214,12 @@
 	</table>
 </div>
 <div id="editdlg-buttons">
+<% if(flag) { %>
 	<a href="javascript:void(0)" class="easyui-linkbutton"
 		onclick="processbatch()" iconcls="icon-save">保存</a> 
+		<% } %>
 		<a href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="javascript:$('#dlgDetails').dialog('close')"
+		onclick="closeDlgDetails()"
 		iconcls="icon-cancel">取消</a>
 </div>
 

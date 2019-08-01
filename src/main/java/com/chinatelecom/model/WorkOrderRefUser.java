@@ -100,4 +100,14 @@ public class WorkOrderRefUser {
 		}
 	}
 
+	public String getFormatState() {
+		switch (state) {
+		case 1:
+			return "待处理";
+		case 2:
+			return "反馈";
+		default:
+			return "完成";
+		}
+	}
 }

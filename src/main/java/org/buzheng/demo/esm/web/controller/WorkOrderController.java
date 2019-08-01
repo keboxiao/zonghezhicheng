@@ -81,11 +81,14 @@ public class WorkOrderController {
 
 	@RequestMapping("listMyWorkOrderToBeProcessed")
 	@ResponseBody
-	public List<WorkOrder> listMyWorkOrderToBeProcessed(HttpServletRequest request, HttpSession session)
+	public DataGrid listMyWorkOrderToBeProcessed(HttpServletRequest request, HttpSession session)
 			throws IllegalStateException, IOException {
+		String title = request.getParameter("title");
+		Integer page = Integer.parseInt(request.getParameter("page"));
+		Integer rows = Integer.parseInt(request.getParameter("rows"));
 		// String id = request.getParameter("id");
 		SysUser user = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
-		return workOrderMapper.getMyWorkOrderToBeProcessed(user.getUserId());
+		return workOrderService.getMyWorkOrderToBeProcessed(title, user.getUserId(), page, rows);
 	}
 
 	@RequestMapping("listOrderDetails")

@@ -123,11 +123,14 @@
     from work_order
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <select id="getMyWorkOrderToBeProcessed" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="getMyWorkOrderToBeProcessed" parameterType="java.util.Map" resultMap="BaseResultMap">
     select w.* 
     from work_order w inner join work_order_ref_user r 
     on w.id=r.work_order_id 
-    where r.state=1 and r.user_id = #{userId,jdbcType=BIGINT}
+    where r.state=1 and r.user_id = #{userId}
+     <if test="title != null">
+         and w.title like concat('%',#{title},'%')
+     </if>
   </select>
   <select id="getWorkOrderByCondition" parameterType="map" resultMap="BaseResultMap">
     SELECT 

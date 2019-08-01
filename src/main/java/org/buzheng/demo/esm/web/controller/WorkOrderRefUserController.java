@@ -34,6 +34,10 @@ public class WorkOrderRefUserController {
 		} else if (chulifangshi.equals("2")) {
 			workOrderRefUserService.endThisProcess(workOrderId, user.getUserId(), remark);
 			j.setMsg("办结成功");
+		} else {
+			j.setMsg("请选择处理方式");
+			j.setSuccess(false);
+			return j;
 		}
 		j.setSuccess(true);
 		return j;

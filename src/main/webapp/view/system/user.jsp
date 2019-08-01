@@ -17,6 +17,7 @@
 <table id="user_list_dg"></table>
 
 <div id="user_list_dg_toolbar">
+<form id="user_searchForm">
 姓名：<input id="name" class="easyui-textbox" name="name" />
     <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
     <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="clearFun();">重置</a>
@@ -24,6 +25,7 @@
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="openEditWin()">修改</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUser()">删除</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="resetPassword()">重置密码</a>
+    </form>
 </div>
 
 <div id="user_save_dialog">
@@ -76,7 +78,17 @@ var UrlConfig = {
 	SysRoleList: '<%=request.getContextPath() %>/app/sys/role/listNoRoot',
 	SysGroupList: '<%=request.getContextPath() %>/app/sys/group/ownGroups'
 };
-
+serializeObject = function(form) {
+	var o = {};
+	$.each(form.serializeArray(), function(index) {
+		if (o[this['name']]) {
+			o[this['name']] = o[this['name']] + "," + this['value'];
+		} else {
+			o[this['name']] = this['value'];
+		}
+	});
+	return o;
+};
 $(function(){
 	$('#user_list_dg').datagrid({
 		url: UrlConfig.SysUserPage,

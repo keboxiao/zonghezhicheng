@@ -92,7 +92,8 @@
 	    		u.username, 
 	    		u.name, 
 	    		u.role_id, 
-	    		u.group_id 
+	    		u.group_id,
+	    		u.phone 
 	    FROM sys_user u
 	    WHERE u.username = #{param1} and u.password = #{param2}
 	</select>

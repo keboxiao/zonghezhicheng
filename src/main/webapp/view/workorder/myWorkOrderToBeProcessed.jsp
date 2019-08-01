@@ -75,6 +75,11 @@ $(function() {
 	});
 });
 
+function closeDlgDetails() {
+	$('#nextHandler').datagrid('loadData', {total:0,rows:[]});
+	$('#dlgDetails').dialog('close');
+}
+
 function processbatch() {
 	var objRows = $('#nextHandler').datagrid('getRows');
 	//var rows = $('#grid').datagrid('getSelected');
@@ -100,8 +105,11 @@ function processbatch() {
 					title : '提示',
 					msg : r.msg
 				});
-				$("#dlgDetails").dialog("close");
-				$("#grid").datagrid("load");
+				if(r.success){
+					$('#nextHandler').datagrid('loadData', {total:0,rows:[]});
+					$("#dlgDetails").dialog("close");
+					$("#grid").datagrid("load");
+				}
 			}
 		});
 		}
@@ -142,10 +150,10 @@ serializeObject = function(form) {
 	return o;
 };
 
-function searchFun() {
+function searchFunW() {
 	$('#grid').datagrid('load', serializeObject($('#admin_yhgl_searchForm')));
 }
-function clearFun() {
+function clearFunW() {
 	$('#title').textbox('setValue', '');
 	$('#grid').datagrid('load', {});
 }
@@ -237,7 +245,7 @@ function processWorkOrderByRow(row) {
 				align:'center',
 				width : 200
 			}, {
-				field:'state',
+				field:'formatState',
 				title:'状态',
 				align:'center',
 				width : 70
@@ -411,7 +419,7 @@ function processWorkOrder() {
 				align:'center',
 				width : 200
 			}, {
-				field:'state',
+				field:'formatState',
 				title:'状态',
 				align:'center',
 				width : 70
@@ -667,6 +675,7 @@ function saveOnlyFunc(){
 
 	</head>
 	<body align="center">
+	<% boolean flag = true; %>
 	<%@ include file="createWorkOrder.jsp" %>
 	<%@ include file="workOrderDetails.jsp" %>
 		<div id="tb" style="padding: 3px"
@@ -681,9 +690,9 @@ function saveOnlyFunc(){
 				<a href="javascript:void(0);" id="edit"
 					class="easyui-linkbutton" iconCls="icon-cancel" onclick="deleteById()">删除</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
-					data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
+					data-options="iconCls:'icon-search'" onclick="searchFunW();">查询</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
-					data-options="iconCls:'icon-redo'" onclick="clearFun();">重置</a>
+					data-options="iconCls:'icon-redo'" onclick="clearFunW();">重置</a>
 			</form>
 		</div>
 		<div>

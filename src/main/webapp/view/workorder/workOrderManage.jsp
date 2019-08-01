@@ -230,7 +230,7 @@ function details() {
 				align:'center',
 				width : 200
 			}, {
-				field:'state',
+				field:'formatState',
 				title:'状态',
 				align:'center',
 				width : 70
@@ -347,11 +347,13 @@ function deleteById(){
 		});
 	}
 }
+function closeDlgDetails() {
+	$('#dlgDetails').dialog('close');
+}
 </script>
-
+<% boolean flag = false; %>
 	</head>
 	<body align="center">
-	<%@ include file="createWorkOrder.jsp" %>
 	<%@ include file="workOrderDetails.jsp" %>
 		<div id="tb" style="padding: 3px"
 			data-options="region:'north',title:'查询条件',border:false">

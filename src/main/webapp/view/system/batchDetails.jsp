@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"
-	import="java.sql.*,java.lang.*"%>
+	import="java.lang.*"%>
 
 <div id="dlgDetails" class="easyui-dialog"
 	style="width: 900px; height: 500px; padding: 10px 20px;" closed="true"
@@ -56,8 +56,11 @@
 	</table>
 </div>
 <div id="editdlg-buttons">
+<% if(flag) { %>
 	<a href="javascript:void(0)" class="easyui-linkbutton"
-		onclick="savebatch()" iconcls="icon-save">保存</a> <a
+		onclick="savebatch()" iconcls="icon-save">保存</a> 
+	<% } %>	
+		<a
 		href="javascript:void(0)" class="easyui-linkbutton"
 		onclick="javascript:$('#dlgDetails').dialog('close')"
 		iconcls="icon-cancel">取消</a>

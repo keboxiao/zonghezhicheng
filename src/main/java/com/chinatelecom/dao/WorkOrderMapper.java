@@ -36,7 +36,7 @@ public interface WorkOrderMapper {
 
 	int updateByPrimaryKey(WorkOrder record);
 
-	List<WorkOrder> getMyWorkOrderToBeProcessed(Long userId);
+	List<WorkOrder> getMyWorkOrderToBeProcessed(Map<String,Object> params);
 
 	List<WorkOrder> getWorkOrderByCondition(@Param("params") Map<String, Object> params);
 

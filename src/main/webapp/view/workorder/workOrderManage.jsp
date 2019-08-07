@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" import="org.buzheng.demo.esm.App,org.buzheng.demo.esm.domain.SysUser" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML >
 <html>
@@ -351,7 +351,11 @@ function closeDlgDetails() {
 	$('#dlgDetails').dialog('close');
 }
 </script>
-<% boolean flag = false; %>
+<%
+boolean flag = false;
+SysUser u = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
+
+%>
 	</head>
 	<body align="center">
 	<%@ include file="workOrderDetails.jsp" %>
@@ -364,8 +368,10 @@ function closeDlgDetails() {
 				终止日期：<input id="endtime" class="easyui-datebox" name="endtime" />
 				<a href="javascript:void(0);" id="edit"
 					class="easyui-linkbutton" iconCls="icon-edit" onclick="details()">详情</a>
-				<a href="javascript:void(0);" id="edit"
+				<% if(u!=null && u.getUsername().equals("admin")) { %>
+				<a href="javascript:void(0);" id="delete"
 					class="easyui-linkbutton" iconCls="icon-cancel" onclick="deleteById()">删除</a>
+					<% } %>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
 					data-options="iconCls:'icon-search'" onclick="searchFun();">查询</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"

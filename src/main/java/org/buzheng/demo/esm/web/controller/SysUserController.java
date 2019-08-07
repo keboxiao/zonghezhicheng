@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.buzheng.demo.esm.App;
 import org.buzheng.demo.esm.domain.SysUser;
 import org.buzheng.demo.esm.service.SysUserService;
@@ -42,13 +43,16 @@ public class SysUserController extends BaseController {
 		}
 		DataGrid datagrid = null;
 		Map<String, Object> params = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank( name)) {
+			params.put("name", name);
+		}
 		// 超级管理员才能查全部用户，其他只能查自己机构内部的用户
 		if (App.SUPER_ROLE_ID.equals(user.getRoleId())) {
-			params.put("name", name);
+			//params.put("name", name);
 			datagrid = this.sysUserService.findPage(page, rows);
 		} else {
 			params.put("groupId", user.getGroupId());
-			params.put("name", name);
+			//params.put("name", name);
 			datagrid = this.sysUserService.findPage(params, page, rows);
 		}
 		return datagrid;

@@ -190,9 +190,11 @@
 				 附件 
 			</td>
 		</tr>
+		<% if(flag) { %>
 		<tr height='35px'>
 			<form id="uploadForm" name="uploadForm" enctype="multipart/form-data"
 				method="post">
+			
 			<td align="left" style="width: 90px">
 				<div id="newUpload2">
 					<input id="file" type="file" name="file" multiple="true">
@@ -206,6 +208,7 @@
 			</td>
 			</form>
 		</tr>
+		<% } %>
 		<tr>
 			<td colspan="2" align="left">
 				<div id="filegrid" style="width: 100%; height: 150px;"></div>

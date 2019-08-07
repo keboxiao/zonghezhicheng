@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" import="org.buzheng.demo.esm.App,org.buzheng.demo.esm.domain.SysUser" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML >
 <html>
@@ -672,7 +672,9 @@ function saveOnlyFunc(){
 	}
 }
 </script>
-
+        <%
+				SysUser u = (SysUser) session.getAttribute(App.USER_SESSION_KEY);
+		%>
 	</head>
 	<body align="center">
 	<% boolean flag = true; %>
@@ -687,8 +689,10 @@ function saveOnlyFunc(){
 					class="easyui-linkbutton" iconCls="icon-add" onclick="addBatch()">添加</a>
 				<a href="javascript:void(0);" id="edit"
 					class="easyui-linkbutton" iconCls="icon-edit" onclick="processWorkOrder()">处理</a>
-				<a href="javascript:void(0);" id="edit"
+				<% if(u!=null && u.getUsername().equals("admin")) { %>
+				<a href="javascript:void(0);" id="delete"
 					class="easyui-linkbutton" iconCls="icon-cancel" onclick="deleteById()">删除</a>
+				<% } %>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
 					data-options="iconCls:'icon-search'" onclick="searchFunW();">查询</a>
 				<a href="javascript:void(0);" class="easyui-linkbutton"
